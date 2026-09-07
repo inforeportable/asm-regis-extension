@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบคัดกรองสุขภาพอาสาสมัครสาธารณสุขประจำหมู่บ้าน</title>
+    <!-- ใช้ฟอนต์ทางการ TH Sarabun PSK หรือฟอนต์มาตรฐานราชการ -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 9.0pt;
+            color: #000;
+            background-color: #525659;
+            line-height: 1.5;
+        }
+
+        /* หน้ากระดาษ A4 แนวตั้ง */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 0.25cm 0.55cm; 
+            margin: 10mm auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* แผงควบคุมด้านบน (ซ่อนตอนปริ้นท์) */
+        .no-print-toolbar {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            background: #0056b3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #004085;
+        }
+
+        .btn-clear {
+            background: #6c757d;
+        }
+
+        .btn-clear:hover {
+            background: #5a6268;
+        }
+
+        /* ส่วนหัวเอกสาร */
+        .header {
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        .header h1 {
+            font-size: 11.2pt;
+            font-weight: 700;
+            margin-bottom: 1px;
+            line-height: 1.25;
+        }
+
+        /* พื้นที่เนื้อหาอิสระ */
+        .content-container {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* ส่วนหัวข้อ Section ภายในเนื้อหา แบบมีกรอบคลุมสีดำ */
+        .section-box {
+            border: 1.1px solid #000;
+            padding: 2px 4px;
+            position: relative;
+            background-color: #fff;
+        }
+
+        .section-header-title {
+            font-weight: 700;
+            font-size: 9.5pt;
+            margin-bottom: 1px;
+            color: #000;
+            line-height: 1.25;
+        }
+
+        /* สไตล์สำหรับส่วนข้อมูลบริการ ให้ตัวอักษรและระยะเหมาะสม */
+        .service-info-box {
+            padding: 1px 0px;
+            background-color: #fff;
+            font-size: 8.6pt;
+            line-height: 1.45;
+        }
+
+        .service-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 3px;
+        }
+
+        .service-field {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        /* สไตล์ Input ช่องกรอกข้อความ */
+        .form-input {
+            border: none;
+            border-bottom: 1px dotted #000;
+            background: transparent;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 8.8pt;
+            color: #000;
+            text-align: center;
+            padding: 0 1px;
+            outline: none;
+            height: 16px;
+            line-height: 16px;
+        }
+
+        .form-input:focus {
+            border-bottom: 1.5px solid #0056b3;
+            background-color: #f0f7ff;
+        }
+
+        /* Checkbox & Radio แสดงเครื่องหมายถูก ✓ ชัดเจน */
+        .check-item {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin: 0 1px;
+        }
+
+        .real-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #000;
+            margin: 0 2px 0 2px;
+            vertical-align: middle;
+            background-color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border-radius: 0;
+            position: relative;
+            flex-shrink: 0;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .real-checkbox:checked::after {
+            content: "\2713";
+            font-size: 10px;
+            font-weight: 900;
+            color: #000;
+            line-height: 10px;
+            position: absolute;
+            top: -1px;
+            left: 1px;
+        }
+
+        /* สไตล์สำหรับช่องกรอกเลขบัตรประจำตัวประชาชน 13 หลัก */
+        .id-card-container {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 4px;
+        }
+
+        .id-card-boxes {
+            display: inline-flex;
+            border: 1px solid #000;
+            margin: 0 2px;
+        }
+
+        .id-box {
+            width: 15px;
+            height: 16px;
+            border-right: 1.1px solid #000;
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+            text-align: center;
+            line-height: 16px;
+            background-color: #fff;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 9.0pt;
+            font-weight: bold;
+            padding: 0;
+            outline: none;
+        }
+
+        .id-box:last-child {
+            border-right: none;
+        }
+
+        .id-dash {
+            padding: 0 3px;
+            font-weight: bold;
+            display: inline-block;
+            line-height: 16px;
+        }
+
+        /* สไตล์ตารางสุขภาพ */
+        .health-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.3pt;
+            margin-top: 1px;
+            line-height: 1.35;
+        }
+
+        .health-table th, .health-table td {
+            border: 1px solid #000;
+            padding: 1px 2px;
+            text-align: left;
+        }
+
+        .health-table th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+            text-align: center;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        /* Layout สำหรับส่วนที่ขนานกัน (2 คอลัมน์) */
+        .row-two-columns {
+            display: flex;
+            gap: 4px;
+        }
+
+        .column-half {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-half .section-box {
+            height: 100%;
+        }
+
+        /* ส่วนท้ายกระดาษ (Footer) */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.8pt;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 1px;
+            margin-top: 1px;
+        }
+
+        /* หมายเหตุใต้ส่วนที่ 7 */
+        .bottom-notice {
+            font-size: 7.0pt;
+            color: #333;
+            line-height: 1.35;
+            margin-top: 2px;
+            padding: 1px 4px;
+            border: 1px dashed #666;
+            background-color: #fafafa;
+        }
+
+        /* ตั้งค่าสำหรับการสั่งพิมพ์ (@media print) */
+        @media print {
+            body {
+                background: none;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                width: 210mm;
+                height: 296mm;
+                max-height: 297mm;
+                padding: 0.25cm 0.55cm;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                overflow: hidden;
+            }
+            .no-print, .no-print-toolbar {
+                display: none !important;
+            }
+            .form-input {
+                border-bottom: 1px dotted #000 !important;
+                background: transparent !important;
+            }
+            .real-checkbox:checked::after {
+                content: "\2713" !important;
+                color: #000 !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print-toolbar">
+        <button class="btn-action btn-clear" onclick="clearAllForm()">ล้างข้อมูล (Clear)</button>
+        <button class="btn-action" onclick="window.print()">พิมพ์เอกสาร (Print)</button>
+    </div>
+
+    <div class="page">
+        <div>
+            <!-- ส่วนหัวเอกสาร -->
+            <div class="header">
+                <h1>ใบคัดกรองสุขภาพอาสาสมัครสาธารณสุขประจำหมู่บ้าน เครือข่ายโรงพยาบาลนครปฐม</h1>
+            </div>
+
+            <!-- พื้นที่สำหรับใส่เนื้อหาทั้งหมด -->
+            <div class="content-container">
+                
+                <!-- ส่วนที่ 1 ข้อมูลบริการ -->
+                <div class="section-box">
+                    <div class="section-header-title">ส่วนที่ 1 ข้อมูลบริการ</div>
+                    <div class="service-info-box">
+                        <div class="service-info-row">
+                            <div class="service-field">
+                                <span>รอบ:</span>
+                                <input type="text" id="round_no" class="form-input" style="width: 24px;">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1; margin: 0 3px;">
+                                <span>สถานที่บริการ:</span>
+                                <input type="text" id="service_place" class="form-input" style="width: calc(100% - 65px);">
+                            </div>
+                            <div class="service-field">
+                                <span>รายการรวม:</span>
+                                <input type="text" id="total_items" class="form-input" style="width: 24px;">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1; margin: 0 3px;">
+                                <span>หน่วยบริการ:</span>
+                                <input type="text" id="service_unit" class="form-input" style="width: calc(100% - 65px);">
+                            </div>
+                            <div class="service-field">
+                                <span>ลำดับ:</span>
+                                <input type="text" id="queue_no" class="form-input" style="width: 36px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 2 ประวัติ -->
+                <div class="section-box">
+                    <div class="section-header-title">ส่วนที่ 2 ประวัติ</div>
+                    <div class="service-info-box">
+                        <!-- บรรทัดที่ 1: ชื่อ-สกุล, เพศ, วันเกิด, อายุ -->
+                        <div class="service-info-row" style="margin-bottom: 2px;">
+                            <div class="service-field" style="flex-grow: 1.5; margin-right: 4px;">
+                                <span>ชื่อ-สกุล:</span>
+                                <input type="text" id="fullname" class="form-input" style="width: calc(100% - 48px); text-align: left; padding-left: 4px;">
+                            </div>
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>เพศ:</span>
+                                <span style="margin-left: 2px;">
+                                    <label class="check-item"><input type="radio" name="gender" value="male" class="real-checkbox" onchange="calculateAll()"> ชาย</label> &nbsp; 
+                                    <label class="check-item"><input type="radio" name="gender" value="female" class="real-checkbox" onchange="calculateAll()"> หญิง</label>
+                                </span>
+                            </div>
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>วันเกิด:</span>
+                                <input type="text" id="birthdate" class="form-input" style="width: 75px;" placeholder="วว/ดด/ปปปป">
+                            </div>
+                            <div class="service-field">
+                                <span>อายุ:</span>
+                                <input type="number" id="age" class="form-input" style="width: 36px;" oninput="calculateAll()">
+                                <span style="margin-left: 2px;">ปี</span>
+                            </div>
+                        </div>
+
+                        <!-- บรรทัดที่ 2: บัญชี, เลขประชาชน, HN -->
+                        <div class="service-info-row" style="margin-bottom: 2px;">
+                            <div class="service-field" style="margin-right: 6px;">
+                                <span>บัญชี:</span>
+                                <span style="margin-left: 2px;">
+                                    <label class="check-item"><input type="radio" name="account_type" value="1" class="real-checkbox"> 1</label> &nbsp; 
+                                    <label class="check-item"><input type="radio" name="account_type" value="2" class="real-checkbox"> 2</label> &nbsp; 
+                                    <label class="check-item"><input type="radio" name="account_type" value="other" class="real-checkbox"> อื่นๆ</label>
+                                    <input type="text" id="account_other" class="form-input" style="width: 22px;">
+                                </span>
+                            </div>
+                            <div class="service-field" style="flex-grow: 1; margin-right: 6px;">
+                                <span>เลขประชาชน:</span>
+                                <div class="id-card-container">
+                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_0"></div>
+                                    <span class="id-dash">-</span>
+                                    <div class="id-card-boxes">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_1"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_2"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_3"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_4">
+                                    </div>
+                                    <span class="id-dash">-</span>
+                                    <div class="id-card-boxes">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_5"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_6"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_7"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_8"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_9">
+                                    </div>
+                                    <span class="id-dash">-</span>
+                                    <div class="id-card-boxes">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_10"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_11">
+                                    </div>
+                                    <span class="id-dash">-</span>
+                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_12"></div>
+                                </div>
+                            </div>
+                            <div class="service-field" style="flex-shrink: 1; min-width: 0;">
+                                <span>HN:</span>
+                                <input type="text" id="hn" class="form-input" style="width: 130px; max-width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- บรรทัดที่ 3: ที่อยู่, หมู่, ถนน, ชื่อชุมชน, ตำบล, อำเภอ -->
+                        <div class="service-info-row">
+                            <div class="service-field" style="flex-grow: 2; margin-right: 3px;">
+                                <span>ที่อยู่:</span>
+                                <input type="text" id="address_no" class="form-input" style="width: calc(100% - 28px);">
+                            </div>
+                            <div class="service-field" style="width: 44px; margin-right: 3px;">
+                                <span>หมู่:</span>
+                                <input type="text" id="moo" class="form-input" style="width: calc(100% - 22px);">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1.5; margin-right: 3px;">
+                                <span>ถนน:</span>
+                                <input type="text" id="road" class="form-input" style="width: calc(100% - 26px);">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1.5; margin-right: 3px;">
+                                <span>ชื่อชุมชน:</span>
+                                <input type="text" id="community" class="form-input" style="width: calc(100% - 44px);">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1.5; margin-right: 3px;">
+                                <span>ตำบล:</span>
+                                <input type="text" id="subdistrict" class="form-input" style="width: calc(100% - 30px);">
+                            </div>
+                            <div class="service-field" style="flex-grow: 1.5;">
+                                <span>อำเภอ:</span>
+                                <input type="text" id="district" class="form-input" style="width: calc(100% - 34px);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 3 ประวัติสุขภาพ -->
+                <div class="section-box">
+                    <div class="section-header-title">ส่วนที่ 3 ประวัติสุขภาพ</div>
+                    <div class="service-info-box">
+                        <!-- บรรทัดที่ 1: น้ำหนัก, สูง, เอว, BP, ชีพจร -->
+                        <div class="service-info-row" style="margin-bottom: 2px;">
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>น้ำหนัก:</span>
+                                <input type="number" step="0.1" id="weight" class="form-input" style="width: 32px;" oninput="calculateAll()">
+                                <span style="margin-left: 1px;">kg</span>
+                            </div>
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>สูง:</span>
+                                <input type="number" step="0.1" id="height" class="form-input" style="width: 36px;" oninput="calculateAll()">
+                                <span style="margin-left: 1px;">cm</span>
+                            </div>
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>เอว:</span>
+                                <input type="number" step="0.1" id="waist" class="form-input" style="width: 38px;" oninput="calculateAll()">
+                                <span style="margin-left: 1px;">cm</span>
+                            </div>
+                            <div class="service-field" style="margin-right: 4px;">
+                                <span>BP:</span>
+                                <input type="number" id="bp_sys" class="form-input" style="width: 40px;" oninput="calculateAll()">
+                                <span style="margin: 0 1px; font-weight: bold;">/</span>
+                                <input type="number" id="bp_dia" class="form-input" style="width: 40px;" oninput="calculateAll()">
+                                <span style="margin-left: 1px;">mmHg</span>
+                            </div>
+                            <div class="service-field">
+                                <span>ชีพจร:</span>
+                                <input type="number" id="pulse" class="form-input" style="width: 34px;">
+                                <span style="margin-left: 1px;">ครั้ง/นาที</span>
+                            </div>
+                        </div>
+
+                        <!-- บรรทัดที่ 2: ตารางประเมินสุขภาพ แบบ 2 คอลัมน์ -->
+                        <table class="health-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 41%;">รายการประเมิน / ตรวจสุขภาพ</th>
+                                    <th style="width: 9%; text-align: center;">ผล</th>
+                                    <th style="width: 41%;">รายการประเมิน / ตรวจสุขภาพ</th>
+                                    <th style="width: 9%; text-align: center;">ผล</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>• เป็นโรคเบาหวาน หรือไม่</td>
+                                    <td style="text-align: center; white-space: nowrap;">
+                                        <label class="check-item"><input type="radio" name="dm_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
+                                        <label class="check-item"><input type="radio" name="dm_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                    </td>
+                                    <td>• พฤติกรรมการสูบบุหรี่</td>
+                                    <td style="text-align: center; white-space: nowrap;">
+                                        <label class="check-item"><input type="radio" name="smoke_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
+                                        <label class="check-item"><input type="radio" name="smoke_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>• เป็นโรคความดันโลหิตสูงหรือไม่</td>
+                                    <td style="text-align: center; white-space: nowrap;">
+                                        <label class="check-item"><input type="radio" name="ht_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
+                                        <label class="check-item"><input type="radio" name="ht_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                    </td>
+                                    <td>• พฤติกรรมการดื่มสุรา</td>
+                                    <td style="text-align: center; white-space: nowrap;">
+                                        <label class="check-item"><input type="radio" name="alcohol_history" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
+                                        <label class="check-item"><input type="radio" name="alcohol_history" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>• ผลเลือด น้ำตาล ล่าสุด (FBS) <input type="number" id="fbs" class="form-input" style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
+                                    <td style="text-align: center;">-</td>
+                                    <td>• ผลเลือด Cholesterol ล่าสุด <input type="number" id="cholesterol" class="form-input" style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
+                                    <td style="text-align: center;">-</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="padding: 1px 2px;">
+                                        ผล BMI <input type="text" id="bmi_value" class="form-input" style="width: 34px; font-weight: bold;" readonly> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="bmi_under" class="real-checkbox" onclick="return false;"> ผอม (&lt;18.5)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="bmi_normal" class="real-checkbox" onclick="return false;"> ปกติ (18.5-22.9)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="bmi_over" class="real-checkbox" onclick="return false;"> ท้วม (23.0-24.9)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="bmi_obese1" class="real-checkbox" onclick="return false;"> อ้วน (25.0-29.9)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="bmi_obese2" class="real-checkbox" onclick="return false;"> อ้วนมาก (&ge;30)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="padding: 1px 2px;">
+                                        แปลผลรอบเอว: 
+                                        <label class="check-item"><input type="checkbox" id="waist_m_normal" class="real-checkbox" onclick="return false;"> ชายปกติ (&le;90ซม.)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="waist_m_risk" class="real-checkbox" onclick="return false;"> ชายเกิน (&gt;90ซม.)</label> &nbsp; &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="waist_f_normal" class="real-checkbox" onclick="return false;"> หญิงปกติ (&le;80ซม.)</label> &nbsp; 
+                                        <label class="check-item"><input type="checkbox" id="waist_f_risk" class="real-checkbox" onclick="return false;"> หญิงเกิน (&gt;80ซม.)</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 4 และ ส่วนที่ 5 จัดเรียงแบบ 2 คอลัมน์ขนานกัน -->
+                <div class="row-two-columns">
+                    
+                    <!-- ส่วนที่ 4 ความเสี่ยง CVD และความดันโลหิต (คอลัมน์ซ้าย) -->
+                    <div class="column-half">
+                        <div class="section-box">
+                            <div class="section-header-title">ส่วนที่ 4 ความเสี่ยง CVD และความดันโลหิต</div>
+                            <div class="service-info-box">
+                                <div class="service-info-row" style="align-items: center; margin-bottom: 2px; flex-wrap: wrap;">
+                                    <div class="service-field">
+                                        <span>ความเสี่ยงใน 10 ปี:</span>
+                                        <input type="text" id="cvd_risk_value" class="form-input" style="width: 36px; font-weight: bold;" readonly>
+                                        <span style="margin-left: 1px;">%</span>
+                                    </div>
+                                    <div class="service-field" style="width: 100%; margin-top: 1px; justify-content: space-between;">
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_low" class="real-checkbox" onclick="return false;"> เสี่ยงน้อย (&le;9%)</label></span>
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_mod" class="real-checkbox" onclick="return false;"> ปานกลาง (10-19%)</label></span>
+                                    </div>
+                                    <div class="service-field" style="width: 100%; margin-top: 1px; justify-content: space-between;">
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_high" class="real-checkbox" onclick="return false;"> เสี่ยงสูง (20-30%)</label></span>
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_very_high" class="real-checkbox" onclick="return false;"> สูงมาก (&gt;30%)</label></span>
+                                    </div>
+                                </div>
+
+                                <!-- ตารางจำแนกความดันโลหิต ปรับความกว้างคอลัมน์แรกให้พอดีบรรทัดเดียว -->
+                                <table class="health-table" style="margin-top: 1px; font-size: 7.9pt;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 44%; text-align: left;">ระดับ</th>
+                                            <th style="width: 17%; text-align: right;">ตัวบน</th>
+                                            <th style="width: 17%; text-align: right;">ตัวล่าง</th>
+                                            <th style="width: 22%; text-align: left;">คำแนะนำ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_3" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 3</label></td>
+                                            <td style="text-align: right;">&ge;180</td>
+                                            <td style="text-align: right;">&ge;110</td>
+                                            <td>รีบพบแพทย์</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_2" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 2</label></td>
+                                            <td style="text-align: right;">160–179</td>
+                                            <td style="text-align: right;">100–109</td>
+                                            <td>รีบพบแพทย์</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_1" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 1</label></td>
+                                            <td style="text-align: right;">140–159</td>
+                                            <td style="text-align: right;">90–99</td>
+                                            <td>รีบพบแพทย์</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_risk" class="real-checkbox" onclick="return false;"> เสี่ยง</label></td>
+                                            <td style="text-align: right;">130–139</td>
+                                            <td style="text-align: right;">80–89</td>
+                                            <td>ปรับพฤติกรรม</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_normal" class="real-checkbox" onclick="return false;"> ปกติ</label></td>
+                                            <td style="text-align: right;">120–129</td>
+                                            <td style="text-align: right;">&lt;80</td>
+                                            <td>ดูแลสุขภาพ</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_opt" class="real-checkbox" onclick="return false;"> เหมาะสม</label></td>
+                                            <td style="text-align: right;">90–119</td>
+                                            <td style="text-align: right;">60–79</td>
+                                            <td>ดูแลสุขภาพ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 5 แบบคัดกรองวัณโรค TB Screening (คอลัมน์ขวา) -->
+                    <div class="column-half">
+                        <div class="section-box">
+                            <div class="section-header-title">ส่วนที่ 5 แบบคัดกรองวัณโรค (TB Screening)</div>
+                            <div class="service-info-box">
+                                <div class="service-info-row" style="margin-bottom: 2px; flex-direction: column; align-items: flex-start; gap: 1px;">
+                                    <div class="service-field">
+                                        <span>• ประวัติรักษา/เคยป่วยวัณโรค?</span>
+                                        <span style="margin-left: 2px;">
+                                            <label class="check-item"><input type="radio" name="tb_history" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
+                                            <label class="check-item"><input type="radio" name="tb_history" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                        </span>
+                                    </div>
+                                    <div class="service-field">
+                                        <span>• ประวัติสัมผัสผู้ป่วยวัณโรค?</span>
+                                        <span style="margin-left: 2px;">
+                                            <label class="check-item"><input type="radio" name="tb_contact" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
+                                            <label class="check-item"><input type="radio" name="tb_contact" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                        </span>
+                                    </div>
+                                    <div class="service-field">
+                                        <span>• ภายใน 6 เดือน X-ray ปอด?</span>
+                                        <span style="margin-left: 2px;">
+                                            <label class="check-item"><input type="radio" name="tb_xray" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
+                                            <label class="check-item"><input type="radio" name="tb_xray" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- ตารางคัดกรองอาการวัณโรค -->
+                                <table class="health-table" style="margin-top: 1px; font-size: 8.0pt;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%; text-align: center;">ข้อ</th>
+                                            <th style="width: 58%; text-align: left;">อาการและเกณฑ์คะแนน</th>
+                                            <th style="width: 12%; text-align: center;">คะแนน</th>
+                                            <th style="width: 10%; text-align: center;">มี</th>
+                                            <th style="width: 10%; text-align: center;">ไม่มี</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">1</td>
+                                            <td>ไอทุกวันเกิน 2 สัปดาห์</td>
+                                            <td style="text-align: center;">3</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="3" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">2</td>
+                                            <td>ไอเป็นเลือดใน 1 เดือนที่ผ่านมา</td>
+                                            <td style="text-align: center;">3</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="3" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">3</td>
+                                            <td>ไอน้อยกว่า 2 สัปดาห์</td>
+                                            <td style="text-align: center;">2</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="2" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">4</td>
+                                            <td>น้ำหนักลดโดยไม่ทราบสาเหตุ</td>
+                                            <td style="text-align: center;">1</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="1" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">5</td>
+                                            <td>มีไข้ทุกวันนาน 1 สัปดาห์</td>
+                                            <td style="text-align: center;">1</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="1" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">6</td>
+                                            <td>เหงื่อออกมากผิดปกติกลางคืน</td>
+                                            <td style="text-align: center;">1</td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="1" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="padding: 1px 2px; font-weight: 600;">
+                                                คะแนนรวม: 
+                                                <label class="check-item"><input type="checkbox" id="tb_res_normal" class="real-checkbox" onclick="return false;"> ปกติ</label> &nbsp; 
+                                                <label class="check-item"><input type="checkbox" id="tb_res_suspect" class="real-checkbox" onclick="return false;"> สงสัย TB (&ge;3)</label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ส่วนที่ 6 แบบประเมินสุขภาพจิต (ความเครียด ST5, ซึมเศร้า 2Q และ 9Q) อยู่ในกรอบใหญ่เดียวกัน -->
+                <div class="section-box">
+                    <div class="section-header-title">ส่วนที่ 6 ประเมินสุขภาพจิต (ความเครียดและซึมเศร้า)</div>
+                    <div class="service-info-box">
+                        <div class="row-two-columns" style="gap: 4px;">
+                            <!-- คอลัมน์ซ้าย: บรรจุ 6.1 ด้านบน และ 6.2 ด้านล่าง -->
+                            <div class="column-half" style="gap: 2px; display: flex; flex-direction: column;">
+                                <!-- ส่วนที่ 6.1 ความเครียด ST5 -->
+                                <div style="border: 1px solid #000; padding: 2px; background-color: #fff;">
+                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.1 แบบประเมินความเครียด (ST5)</div>
+                                    <div style="font-size: 7.5pt; margin-bottom: 1px; color: #222; line-height: 1.25;">
+                                        <span><b>0</b>=เป็นน้อยมาก/ไม่มี | <b>1</b>=เป็นบางครั้ง | <b>2</b>=เป็นบ่อยครั้ง | <b>3</b>=เป็นประจำ</span>
+                                    </div>
+                                    <table class="health-table" style="font-size: 7.5pt; margin-top: 1px;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%; text-align: center;">ข้อ</th>
+                                                <th style="width: 59%; text-align: left;">อาการหรือความรู้สึก (2-4 สัปดาห์)</th>
+                                                <th style="width: 9%; text-align: center;">0</th>
+                                                <th style="width: 9%; text-align: center;">1</th>
+                                                <th style="width: 9%; text-align: center;">2</th>
+                                                <th style="width: 9%; text-align: center;">3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align: center;">1</td>
+                                                <td>นอนไม่หลับหรือนอนมาก</td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center;">2</td>
+                                                <td>มีสมาธิน้อยลง</td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center;">3</td>
+                                                <td>หงุดหงิด/กระวนกระวาย</td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center;">4</td>
+                                                <td>รู้สึกเบื่อ เซ็ง</td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center;">5</td>
+                                                <td>ไม่อยากพบปะผู้คน</td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6" style="padding: 1px; font-weight: 600;">
+                                                    รวมคะแนน ST5: 
+                                                    <label class="check-item"><input type="checkbox" id="st5_low" class="real-checkbox" onclick="return false;"> 0-4 น้อย</label> 
+                                                    <label class="check-item"><input type="checkbox" id="st5_mod" class="real-checkbox" onclick="return false;"> 5-7 ปานกลาง</label> 
+                                                    <label class="check-item"><input type="checkbox" id="st5_high" class="real-checkbox" onclick="return false;"> 8ขึ้นไป มาก</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- ส่วนที่ 6.2 การคัดกรองโรคซึมเศร้า (2Q) -->
+                                <div style="border: 1px solid #000; padding: 2px; background-color: #fff;">
+                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.2 การคัดกรองโรคซึมเศร้า (2Q)</div>
+                                    <div style="font-size: 7.5pt; margin-bottom: 1px; color: #222;">
+                                        <span>ใน 2 สัปดาห์ ท่านมีอาการ</span>
+                                    </div>
+                                    <table class="health-table" style="font-size: 7.5pt; margin-top: 1px;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 8%; text-align: center;">ข้อ</th>
+                                                <th style="width: 64%; text-align: left;">อาการ (ใน 2 สัปดาห์ที่ผ่านมา)</th>
+                                                <th style="width: 14%; text-align: center;">มี</th>
+                                                <th style="width: 14%; text-align: center;">ไม่มี</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align: center;">1</td>
+                                                <td>หดหู่ เศร้า หรือท้อแท้สิ้นหวัง</td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_1" value="1" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_1" value="0" class="real-checkbox" onchange="calc2Q()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center;">2</td>
+                                                <td>เบื่อ ทำอะไรก็ไม่เพลิดเพลิน</td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_2" value="1" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_2" value="0" class="real-checkbox" onchange="calc2Q()"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" style="padding: 1px; font-weight: 600;">
+                                                    รวม 2Q: 
+                                                    <label class="check-item"><input type="checkbox" id="q2_normal" class="real-checkbox" onclick="return false;"> ไม่มี=ปกติ</label> &nbsp; 
+                                                    <label class="check-item"><input type="checkbox" id="q2_abnormal" class="real-checkbox" onclick="return false;"> มีตั้งแต่ 1ข้อขึ้นไป =ทำ 9Q</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- คอลัมน์ขวา: บรรจุ 6.3 (9Q) เต็มความสูง -->
+                            <div class="column-half">
+                                <div style="border: 1px solid #000; padding: 2px; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.3 แบบประเมินโรคซึมเศร้า (9Q)</div>
+                                        <div style="font-size: 7.2pt; margin-bottom: 1px; display: flex; flex-wrap: wrap; gap: 3px; color: #222; line-height: 1.25;">
+                                            <span><b>0</b>=เป็นน้อยมาก/ไม่มี</span>
+                                            <span><b>1</b>=เป็นบางครั้ง(1-7วัน)</span>
+                                            <span><b>2</b>=เป็นบ่อยครั้ง(&gt;7วัน)</span>
+                                            <span><b>3</b>=เป็นประจำทุกวัน</span>
+                                        </div>
+                                        <table class="health-table" style="font-size: 7.5pt; margin-top: 1px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%; text-align: center;">ข้อ</th>
+                                                    <th style="width: 72%; text-align: left;">ใน 2 สัปดาห์ ท่านมีอาการ...</th>
+                                                    <th style="width: 6%; text-align: center;">0</th>
+                                                    <th style="width: 6%; text-align: center;">1</th>
+                                                    <th style="width: 6%; text-align: center;">2</th>
+                                                    <th style="width: 6%; text-align: center;">3</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align: center;">1</td>
+                                                    <td>เบื่อ ไม่สนใจทำอะไร</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">2</td>
+                                                    <td>ไม่สบายใจ ซึมเศร้า ท้อแท้</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">3</td>
+                                                    <td>หลับยาก หลับๆ ตื่นๆ</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">4</td>
+                                                    <td>เหนื่อยง่ายหรือไม่ค่อยมีแรง</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">5</td>
+                                                    <td>เบื่ออาหาร หรือกินมากเกินไป</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">6</td>
+                                                    <td>รู้สึกไม่ดีกับตัวเอง คิดว่าล้มเหลว</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">7</td>
+                                                    <td>สมาธิไม่ดีเวลาทำอะไร</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">8</td>
+                                                    <td>พูด/ทำอะไรช้าลง กระสับกระส่าย</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">9</td>
+                                                    <td>คิดทำร้ายตนเอง หรืออยากตาย</td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="padding: 1px; font-weight: 600; font-size: 7.5pt; border-top: 1px solid #000; margin-top: 2px;">
+                                        รวม 9Q: 
+                                        <label class="check-item"><input type="checkbox" id="q9_normal" class="real-checkbox" onclick="return false;"> 0-6 ปกติ</label> 
+                                        <label class="check-item"><input type="checkbox" id="q9_mild" class="real-checkbox" onclick="return false;"> 7-12 น้อย</label> 
+                                        <label class="check-item"><input type="checkbox" id="q9_mod_sev" class="real-checkbox" onclick="return false;"> 13+ ปานกลาง-รุนแรง</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 7 สรุปรายการ (3 คอลัมน์ ซ้าย กลาง ขวา) -->
+                <div class="section-box">
+                    <div class="section-header-title">ส่วนที่ 7 สรุปรายการผลการตรวจและคำแนะนำ</div>
+                    <div class="service-info-box">
+                        <div style="display: flex; gap: 4px;">
+                            <!-- คอลัมน์ซ้าย: รายการที่ต้องตรวจ พร้อมหมายเหตุ -->
+                            <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">รายการที่ต้องตรวจ</div>
+                                    <div style="font-size: 7.8pt; line-height: 1.5;">
+                                        <div><label class="check-item"><input type="checkbox" id="lab_fbs" class="real-checkbox"> FBS (อายุ 35+)</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_bun" class="real-checkbox"> BUN</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_cr" class="real-checkbox"> Creatinine</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_lipid" class="real-checkbox"> Lipid Profile</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_ua" class="real-checkbox"> UA (ปัสสาวะ)</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_xray" class="real-checkbox"> XRay</label></div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 7.0pt; color: #333; margin-top: 2px; border-top: 0.5px dashed #666; padding-top: 1px;">
+                                    <span>หมายเหตุ:</span> <input type="text" id="lab_remark" class="form-input" style="width: calc(100% - 48px); border-bottom: none; text-align: left;">
+                                </div>
+                            </div>
+
+                            <!-- คอลัมน์กลาง: ประเมินสุขภาพ / QR Code -->
+                            <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center;">
+                                <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px; width: 100%; text-align: left;">ประเมินสุขภาพ</div>
+                                <div style="padding: 2px 0;">
+                                    <div style="width: 88px; height: 88px; border: 1px solid #000; margin: 0 auto 2px auto; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 8.0pt; font-weight: bold; color: #333;">
+                                        QR CODE
+                                    </div>
+                                    <div style="font-size: 6.8pt; color: #444; line-height: 1.2;">สแกนเพื่อคำนวนสุขภาพ</div>
+                                </div>
+                            </div>
+
+                            <!-- คอลัมน์ขวา: ลงชื่อมารับบริการจริง -->
+                            <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff;">
+                                <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">ลงชื่อมารับบริการจริง</div>
+                                <div style="font-size: 7.8pt; line-height: 1.5;">
+                                    <div style="margin-bottom: 2px;">
+                                        <span>ชื่อ-สกุล:</span>
+                                        <input type="text" id="signer_name" class="form-input" style="width: calc(100% - 42px); text-align: left;">
+                                    </div>
+                                    <div style="margin-bottom: 2px;">
+                                        <span>เบอร์โทร:</span>
+                                        <input type="text" id="signer_phone" class="form-input" style="width: calc(100% - 45px);">
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <span>วันที่รับบริการ:</span>
+                                        <input type="text" id="svc_day" class="form-input" style="width: 20px;">/<input type="text" id="svc_month" class="form-input" style="width: 20px;">/25<input type="text" id="svc_year" class="form-input" style="width: 22px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- หมายเหตุใต้ส่วนที่ 7 -->
+                <div class="bottom-notice">
+                    <div>• โปรดตรวจสอบข้อมูลให้ถูกต้อง ครบถ้วน เป็นปัจจุบัน | เพื่อความสะดวกรวดเร็วและเป็นระเบียบในการรับบริการ ขอความร่วมมือทำแบบประเมินให้เสร็จสิ้นก่อนเข้ารับบริการ</div>
+                    <div>• กราบขออภัยในความไม่สะดวก สามารถให้บริการได้เฉพาะตามรายชื่อที่ที่มีการตรวจสอบ และ ยืนยัน ตามที่กำหนดมาแล้วเท่านั้น</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ส่วน Footer ด้านล่างสุด -->
+        <div class="footer">
+            <div>ใบคัดกรองสุขภาพอาสาสมัครสาธารณสุขประจำหมู่บ้าน | Version 2.4.0 Build 2026-09-07 10:20</div>
+            <div id="print-datetime">เอกสารนี้พิมพ์เมื่อ: 07/09/2569 เวลา 10:20 น.</div>
+        </div>
+    </div>
+
+    <!-- JavaScript คำนวณอัตโนมัติและจัดการฟอร์ม -->
+    <script>
+        // อัปเดตเวลาพิมพ์อัตโนมัติ
+        const now = new Date();
+        const buddhistYear = now.getFullYear() + 543;
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('print-datetime').innerText = `เอกสารนี้พิมพ์เมื่อ: วันที่ ${day}/${month}/${buddhistYear} เวลา ${hours}:${minutes} น.`;
+
+        // จัดการ Input CID 13 หลัก ให้พิมพ์แล้วเด้งไปช่องถัดไปอัตโนมัติ
+        const cidDigits = document.querySelectorAll('.cid-digit');
+        cidDigits.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (input.value.length === 1 && index < cidDigits.length - 1) {
+                    cidDigits[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                    cidDigits[index - 1].focus();
+                }
+            });
+        });
+
+        // ฟังก์ชันคำนวณหลัก
+        function calculateAll() {
+            calcBMI();
+            calcWaist();
+            calcBP();
+            calcCVDRisk();
+            calcLabRecommendations();
+        }
+
+        // 1. คำนวณ BMI
+        function calcBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const bmiInput = document.getElementById('bmi_value');
+            
+            // เคลียร์ checkbox BMI
+            document.getElementById('bmi_under').checked = false;
+            document.getElementById('bmi_normal').checked = false;
+            document.getElementById('bmi_over').checked = false;
+            document.getElementById('bmi_obese1').checked = false;
+            document.getElementById('bmi_obese2').checked = false;
+
+            if (weight > 0 && height > 0) {
+                const heightM = height / 100;
+                const bmi = weight / (heightM * heightM);
+                const bmiFixed = bmi.toFixed(1);
+                bmiInput.value = bmiFixed;
+
+                if (bmi < 18.5) {
+                    document.getElementById('bmi_under').checked = true;
+                } else if (bmi <= 22.9) {
+                    document.getElementById('bmi_normal').checked = true;
+                } else if (bmi <= 24.9) {
+                    document.getElementById('bmi_over').checked = true;
+                } else if (bmi <= 29.9) {
+                    document.getElementById('bmi_obese1').checked = true;
+                } else {
+                    document.getElementById('bmi_obese2').checked = true;
+                }
+            } else {
+                bmiInput.value = '';
+            }
+        }
+
+        // 2. คำนวณรอบเอว ชาย/หญิง
+        function calcWaist() {
+            const waist = parseFloat(document.getElementById('waist').value);
+            const genderNode = document.querySelector('input[name="gender"]:checked');
+            const gender = genderNode ? genderNode.value : null;
+
+            document.getElementById('waist_m_normal').checked = false;
+            document.getElementById('waist_m_risk').checked = false;
+            document.getElementById('waist_f_normal').checked = false;
+            document.getElementById('waist_f_risk').checked = false;
+
+            if (waist > 0 && gender) {
+                if (gender === 'male') {
+                    if (waist <= 90) {
+                        document.getElementById('waist_m_normal').checked = true;
+                    } else {
+                        document.getElementById('waist_m_risk').checked = true;
+                    }
+                } else if (gender === 'female') {
+                    if (waist <= 80) {
+                        document.getElementById('waist_f_normal').checked = true;
+                    } else {
+                        document.getElementById('waist_f_risk').checked = true;
+                    }
+                }
+            }
+        }
+
+        // 3. จำแนกระดับความดันโลหิต (Blood Pressure Staging)
+        function calcBP() {
+            const sys = parseFloat(document.getElementById('bp_sys').value);
+            const dia = parseFloat(document.getElementById('bp_dia').value);
+
+            document.getElementById('bp_stage_3').checked = false;
+            document.getElementById('bp_stage_2').checked = false;
+            document.getElementById('bp_stage_1').checked = false;
+            document.getElementById('bp_stage_risk').checked = false;
+            document.getElementById('bp_stage_normal').checked = false;
+            document.getElementById('bp_stage_opt').checked = false;
+
+            if (sys > 0 || dia > 0) {
+                const s = sys || 0;
+                const d = dia || 0;
+
+                if (s >= 180 || d >= 110) {
+                    document.getElementById('bp_stage_3').checked = true;
+                } else if ((s >= 160 && s <= 179) || (d >= 100 && d <= 109)) {
+                    document.getElementById('bp_stage_2').checked = true;
+                } else if ((s >= 140 && s <= 159) || (d >= 90 && d <= 99)) {
+                    document.getElementById('bp_stage_1').checked = true;
+                } else if ((s >= 130 && s <= 139) || (d >= 80 && d <= 89)) {
+                    document.getElementById('bp_stage_risk').checked = true;
+                } else if (s >= 120 && s <= 129 && d < 80) {
+                    document.getElementById('bp_stage_normal').checked = true;
+                } else if (s >= 90 && s <= 119 && d >= 60 && d <= 79) {
+                    document.getElementById('bp_stage_opt').checked = true;
+                }
+            }
+        }
+
+        // 4. คำนวณ CVD Risk (Thai CV Risk Score 2.5 Rama Model - TASCVDformular ต้นฉบับ)
+        function calcCVDRisk() {
+            const age = parseInt(document.getElementById('age').value) || 0;
+            const genderNode = document.querySelector('input[name="gender"]:checked');
+            const sex = genderNode ? (genderNode.value === 'male' ? 1 : 0) : null;
+            const sbp = parseInt(document.getElementById('bp_sys').value) || 0;
+            const smokeNode = document.querySelector('input[name="smoke_history"]:checked');
+            const smoke = (smokeNode && smokeNode.value === 'yes') ? 1 : 0;
+            const dmNode = document.querySelector('input[name="dm_history"]:checked');
+            const dm = (dmNode && dmNode.value === 'yes') ? 1 : 0;
+            const waist = parseFloat(document.getElementById('waist').value) || 0;
+            const height = parseFloat(document.getElementById('height').value) || 0;
+            const tc = parseInt(document.getElementById('cholesterol').value) || 0;
+            const cvdInput = document.getElementById('cvd_risk_value');
+
+            document.getElementById('cvd_low').checked = false;
+            document.getElementById('cvd_mod').checked = false;
+            document.getElementById('cvd_high').checked = false;
+            document.getElementById('cvd_very_high').checked = false;
+
+            if (!age || sex === null || !sbp || sbp < 70) {
+                cvdInput.value = '';
+                return;
+            }
+
+            const whr = (waist > 0 && height > 0) ? (waist / height) : 0;
+            const sur_root = 0.964588;
+            let full_score = 0;
+            let predicted_risk = 0;
+
+            if (tc > 0) {
+                // 1. กรณีมีผลเลือด Total Cholesterol
+                full_score = (0.08183 * age) + (0.39499 * sex) + (0.02084 * sbp) + (0.69974 * dm) + (0.00212 * tc) + (0.41916 * smoke);
+                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.04423)));
+            } else if (whr > 0) {
+                // 2. กรณีไม่มีผลเลือด แต่มีรอบเอวและส่วนสูง (WHR)
+                full_score = (0.079 * age) + (0.128 * sex) + (0.019350987 * sbp) + (0.58454 * dm) + (3.512566 * whr) + (0.459 * smoke);
+                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.712325)));
+            } else if (waist > 0) {
+                // 3. กรณีมีเฉพาะรอบเอว (WC)
+                full_score = (0.08372 * age) + (0.05988 * sex) + (0.02034 * sbp) + (0.59953 * dm) + (0.01283 * waist) + (0.459 * smoke);
+                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.31047)));
+            } else {
+                cvdInput.value = '';
+                return;
+            }
+
+            if (predicted_risk > 0) {
+                const percent = predicted_risk * 100;
+                if (predicted_risk <= 0.30) {
+                    cvdInput.value = percent.toFixed(1);
+                } else {
+                    cvdInput.value = '>30';
+                }
+
+                if (predicted_risk < 0.10) {
+                    document.getElementById('cvd_low').checked = true;
+                } else if (predicted_risk >= 0.10 && predicted_risk < 0.20) {
+                    document.getElementById('cvd_mod').checked = true;
+                } else if (predicted_risk >= 0.20 && predicted_risk <= 0.30) {
+                    document.getElementById('cvd_high').checked = true;
+                } else {
+                    document.getElementById('cvd_very_high').checked = true;
+                }
+            } else {
+                cvdInput.value = '';
+            }
+        }
+
+        // คำนวณแบบคัดกรองวัณโรค TB
+        function calcTB() {
+            let total = 0;
+            for (let i = 1; i <= 6; i++) {
+                const node = document.querySelector(`input[name="tb_q${i}"]:checked`);
+                if (node) total += parseInt(node.value) || 0;
+            }
+            const checkedAny = document.querySelector('input[name^="tb_q"]:checked');
+            document.getElementById('tb_res_normal').checked = false;
+            document.getElementById('tb_res_suspect').checked = false;
+            if (checkedAny) {
+                if (total >= 3) {
+                    document.getElementById('tb_res_suspect').checked = true;
+                } else {
+                    document.getElementById('tb_res_normal').checked = true;
+                }
+            }
+        }
+
+        // คำนวณแบบประเมิน ST5
+        function calcST5() {
+            let total = 0;
+            let count = 0;
+            for (let i = 1; i <= 5; i++) {
+                const node = document.querySelector(`input[name="st5_q${i}"]:checked`);
+                if (node) {
+                    total += parseInt(node.value) || 0;
+                    count++;
+                }
+            }
+            document.getElementById('st5_low').checked = false;
+            document.getElementById('st5_mod').checked = false;
+            document.getElementById('st5_high').checked = false;
+            if (count > 0) {
+                if (total <= 4) document.getElementById('st5_low').checked = true;
+                else if (total <= 7) document.getElementById('st5_mod').checked = true;
+                else document.getElementById('st5_high').checked = true;
+            }
+        }
+
+        // คำนวณ 2Q
+        function calc2Q() {
+            const q1 = document.querySelector('input[name="q2_1"]:checked');
+            const q2 = document.querySelector('input[name="q2_2"]:checked');
+            document.getElementById('q2_normal').checked = false;
+            document.getElementById('q2_abnormal').checked = false;
+
+            if (q1 && q2) {
+                if (q1.value === '1' || q2.value === '1') {
+                    document.getElementById('q2_abnormal').checked = true;
+                } else {
+                    document.getElementById('q2_normal').checked = true;
+                }
+            }
+        }
+
+        // คำนวณ 9Q
+        function calc9Q() {
+            let total = 0;
+            let count = 0;
+            for (let i = 1; i <= 9; i++) {
+                const node = document.querySelector(`input[name="q9_${i}"]:checked`);
+                if (node) {
+                    total += parseInt(node.value) || 0;
+                    count++;
+                }
+            }
+            document.getElementById('q9_normal').checked = false;
+            document.getElementById('q9_mild').checked = false;
+            document.getElementById('q9_mod_sev').checked = false;
+
+            if (count > 0) {
+                if (total <= 6) document.getElementById('q9_normal').checked = true;
+                else if (total <= 12) document.getElementById('q9_mild').checked = true;
+                else document.getElementById('q9_mod_sev').checked = true;
+            }
+        }
+
+        // แนะนำการตรวจ Lab ตามเกณฑ์อายุ
+        function calcLabRecommendations() {
+            const age = parseFloat(document.getElementById('age').value);
+            if (age >= 35) {
+                document.getElementById('lab_fbs').checked = true;
+            }
+        }
+
+        // ฟังก์ชันอ่านค่าจาก URL และ Auto-fill ลงในฟอร์ม
+        function loadDataFromUrl() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let data = {};
+
+                // 1. กรณีส่งมาเป็น payload ก้อนเดียว (Base64 JSON: ?data=...)
+                if (urlParams.has('data')) {
+                    const rawData = urlParams.get('data');
+                    try {
+                        // ถอดรหัส UTF-8 Base64
+                        const binStr = atob(rawData);
+                        const bytes = Uint8Array.from(binStr, c => c.charCodeAt(0));
+                        const jsonStr = new TextDecoder().decode(bytes);
+                        data = JSON.parse(jsonStr);
+                    } catch (e1) {
+                        try {
+                            const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(rawData))));
+                            data = JSON.parse(jsonStr);
+                        } catch (e2) {
+                            console.warn("Base64 parsing failed, trying direct JSON parse:", e2);
+                            data = JSON.parse(decodeURIComponent(rawData));
+                        }
+                    }
+                } else {
+                    // 2. กรณีส่งมาเป็น Query String ธรรมดา เช่น ?fullname=สมชาย&cid=123...
+                    urlParams.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                }
+
+                if (!data || Object.keys(data).length === 0) return;
+
+                // --- ส่วนที่ 1: ข้อมูลบริการ ---
+                if (data.round_no || data.round) document.getElementById('round_no').value = data.round_no || data.round;
+                if (data.service_place) document.getElementById('service_place').value = data.service_place;
+                if (data.total_items) document.getElementById('total_items').value = data.total_items;
+                if (data.service_unit) document.getElementById('service_unit').value = data.service_unit;
+                if (data.queue_no || data.queue) document.getElementById('queue_no').value = data.queue_no || data.queue;
+
+                // --- ส่วนที่ 2: ข้อมูลประวัติ ---
+                if (data.fullname || data.name) document.getElementById('fullname').value = data.fullname || data.name;
+                
+                // เพศ (male / female หรือ 1 / 0 หรือ ชาย / หญิง)
+                if (data.gender !== undefined) {
+                    const g = String(data.gender).toLowerCase();
+                    if (g === 'male' || g === '1' || g === 'ชาย' || g === 'm') {
+                        const mRadio = document.querySelector('input[name="gender"][value="male"]');
+                        if (mRadio) mRadio.checked = true;
+                    } else if (g === 'female' || g === '0' || g === 'หญิง' || g === 'f') {
+                        const fRadio = document.querySelector('input[name="gender"][value="female"]');
+                        if (fRadio) fRadio.checked = true;
+                    }
+                }
+
+                if (data.birthdate) document.getElementById('birthdate').value = data.birthdate;
+                if (data.age) document.getElementById('age').value = data.age;
+
+                // บัญชี (1, 2, other)
+                if (data.account_type) {
+                    const accRadio = document.querySelector(`input[name="account_type"][value="${data.account_type}"]`);
+                    if (accRadio) accRadio.checked = true;
+                }
+                if (data.account_other) document.getElementById('account_other').value = data.account_other;
+
+                // เลขบัตรประชาชน 13 หลัก (ส่งมาเป็นสตริงยาว 13 ตัว หรืออาร์เรย์)
+                if (data.cid) {
+                    const cleanCid = String(data.cid).replace(/\D/g, '');
+                    for (let i = 0; i < 13 && i < cleanCid.length; i++) {
+                        const box = document.getElementById(`cid_${i}`);
+                        if (box) box.value = cleanCid[i];
+                    }
+                }
+
+                if (data.hn) document.getElementById('hn').value = data.hn;
+                if (data.address_no || data.address) document.getElementById('address_no').value = data.address_no || data.address;
+                if (data.moo) document.getElementById('moo').value = data.moo;
+                if (data.road) document.getElementById('road').value = data.road;
+                if (data.community) document.getElementById('community').value = data.community;
+                if (data.subdistrict) document.getElementById('subdistrict').value = data.subdistrict;
+                if (data.district) document.getElementById('district').value = data.district;
+
+                // --- ส่วนที่ 3: สุขภาพ (ถ้ามีส่งมา) ---
+                if (data.weight) document.getElementById('weight').value = data.weight;
+                if (data.height) document.getElementById('height').value = data.height;
+                if (data.waist) document.getElementById('waist').value = data.waist;
+                if (data.bp_sys) document.getElementById('bp_sys').value = data.bp_sys;
+                if (data.bp_dia) document.getElementById('bp_dia').value = data.bp_dia;
+                if (data.pulse) document.getElementById('pulse').value = data.pulse;
+                if (data.fbs) document.getElementById('fbs').value = data.fbs;
+                if (data.cholesterol || data.tc) document.getElementById('cholesterol').value = data.cholesterol || data.tc;
+
+                // ประวัติโรค / พฤติกรรม
+                if (data.dm_history !== undefined) {
+                    const dmVal = (data.dm_history === true || data.dm_history === 'yes' || data.dm_history === '1' || data.dm_history === 1) ? 'yes' : 'no';
+                    const dmRadio = document.querySelector(`input[name="dm_history"][value="${dmVal}"]`);
+                    if (dmRadio) dmRadio.checked = true;
+                }
+                if (data.ht_history !== undefined) {
+                    const htVal = (data.ht_history === true || data.ht_history === 'yes' || data.ht_history === '1' || data.ht_history === 1) ? 'yes' : 'no';
+                    const htRadio = document.querySelector(`input[name="ht_history"][value="${htVal}"]`);
+                    if (htRadio) htRadio.checked = true;
+                }
+                if (data.smoke_history !== undefined) {
+                    const smkVal = (data.smoke_history === true || data.smoke_history === 'yes' || data.smoke_history === '1' || data.smoke_history === 1) ? 'yes' : 'no';
+                    const smkRadio = document.querySelector(`input[name="smoke_history"][value="${smkVal}"]`);
+                    if (smkRadio) smkRadio.checked = true;
+                }
+                if (data.alcohol_history !== undefined) {
+                    const alcVal = (data.alcohol_history === true || data.alcohol_history === 'yes' || data.alcohol_history === '1' || data.alcohol_history === 1) ? 'yes' : 'no';
+                    const alcRadio = document.querySelector(`input[name="alcohol_history"][value="${alcVal}"]`);
+                    if (alcRadio) alcRadio.checked = true;
+                }
+
+                // --- ส่วนที่ 7: ผู้ลงชื่อรับบริการ ---
+                if (data.signer_name) document.getElementById('signer_name').value = data.signer_name;
+                if (data.signer_phone) document.getElementById('signer_phone').value = data.signer_phone;
+                if (data.svc_day) document.getElementById('svc_day').value = data.svc_day;
+                if (data.svc_month) document.getElementById('svc_month').value = data.svc_month;
+                if (data.svc_year) document.getElementById('svc_year').value = data.svc_year;
+
+                // สั่งประมวลผลคำนวณอัตโนมัติ
+                calculateAll();
+            } catch (err) {
+                console.error("Error parsing URL parameters: ", err);
+            }
+        }
+
+        // สั่งทำงานฟังก์ชันเมื่อโหลดหน้าเว็บเสร็จ
+        window.addEventListener('DOMContentLoaded', () => {
+            loadDataFromUrl();
+        });
+    </script>
+</body>
+</html>
