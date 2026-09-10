@@ -46,10 +46,16 @@
 ค่าอัตราการรอดชีวิตอ้างอิง: $S_0(t) = 0.964588$
 
 #### **สูตร 1: Total Cholesterol (TC)**
+
 $$\text{Full Score} = (0.08183 \times \text{Age}) + (0.39499 \times \text{Sex}) + (0.02084 \times \text{SBP}) + (0.69974 \times \text{DM}) + (0.00212 \times \text{TC}) + (0.41916 \times \text{Smoke})$$$$\text{Predicted Risk} = 1 - (0.964588)^{\exp(\text{Full Score} - 7.04423)}$$
 
-#### **สูตร 2: Waist-to-Height Ratio (WHR)**$$\text{WHR} = \frac{\text{รอบเอว (cm)}}{\text{ส่วนสูง (cm)}}$$$$\text{Full Score} = (0.079 \times \text{Age}) + (0.128 \times \text{Sex}) + (0.019350987 \times \text{SBP}) + (0.58454 \times \text{DM}) + (3.512566 \times \text{WHR}) + (0.459 \times \text{Smoke})$$$$\text{Predicted Risk} = 1 - (0.964588)^{\exp(\text{Full Score} - 7.712325)}$$
-#### **สูตร 3: Waist Circumference (WC)**$$\text{Full Score} = (0.08372 \times \text{Age}) + (0.05988 \times \text{Sex}) + (0.02034 \times \text{SBP}) + (0.59953 \times \text{DM}) + (0.01283 \times \text{WC}) + (0.459 \times \text{Smoke})$$
+#### **สูตร 2: Waist-to-Height Ratio (WHR)**
+
+$$\text{WHR} = \frac{\text{รอบเอว (cm)}}{\text{ส่วนสูง (cm)}}$$$$\text{Full Score} = (0.079 \times \text{Age}) + (0.128 \times \text{Sex}) + (0.019350987 \times \text{SBP}) + (0.58454 \times \text{DM}) + (3.512566 \times \text{WHR}) + (0.459 \times \text{Smoke})$$$$\text{Predicted Risk} = 1 - (0.964588)^{\exp(\text{Full Score} - 7.712325)}$$
+
+#### **สูตร 3: Waist Circumference (WC)**
+
+$$\text{Full Score} = (0.08372 \times \text{Age}) + (0.05988 \times \text{Sex}) + (0.02034 \times \text{SBP}) + (0.59953 \times \text{DM}) + (0.01283 \times \text{WC}) + (0.459 \times \text{Smoke})$$
 $$\text{Predicted Risk} = 1 - (0.964588)^{\exp(\text{Full Score} - 7.31047)}$$
 
 ---
@@ -57,6 +63,7 @@ $$\text{Predicted Risk} = 1 - (0.964588)^{\exp(\text{Full Score} - 7.31047)}$$
 ### 1.3 การแปลผลและการจัดกลุ่มความเสี่ยง (Risk Level Classification)
 
 * **ความเสี่ยงเป็นเท่า (`risk_ratio_times`)**: คำนวณจาก $\frac{\text{Predicted Risk}}{\text{Compare Risk}}$
+
 * **ระดับความเสี่ยง**:
   * `< 10%`: **กลุ่มเสี่ยงน้อย** (`low risk`)
   * `10% - 19.9%`: **กลุ่มเสี่ยงปานกลาง** (`medium risk`)
