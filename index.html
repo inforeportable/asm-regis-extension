@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +27,7 @@
         .page {
             width: 210mm;
             min-height: 297mm;
-            padding: 0.25cm 0.55cm; 
+            padding: 0.25cm 0.55cm;
             margin: 10mm auto;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -56,7 +57,7 @@
             font-weight: 500;
             border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: background 0.2s;
         }
 
@@ -243,7 +244,8 @@
             line-height: 1.35;
         }
 
-        .health-table th, .health-table td {
+        .health-table th,
+        .health-table td {
             border: 1px solid #000;
             padding: 1px 2px;
             text-align: left;
@@ -302,6 +304,7 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+
             .page {
                 margin: 0;
                 box-shadow: none;
@@ -313,17 +316,22 @@
                 page-break-inside: avoid;
                 overflow: hidden;
             }
-            .no-print, .no-print-toolbar {
+
+            .no-print,
+            .no-print-toolbar {
                 display: none !important;
             }
+
             .form-input {
                 border-bottom: 1px dotted #000 !important;
                 background: transparent !important;
             }
+
             .real-checkbox:checked::after {
                 content: "\2713" !important;
                 color: #000 !important;
             }
+
             @page {
                 size: A4 portrait;
                 margin: 0mm;
@@ -331,6 +339,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="no-print-toolbar">
@@ -347,7 +356,7 @@
 
             <!-- พื้นที่สำหรับใส่เนื้อหาทั้งหมด -->
             <div class="content-container">
-                
+
                 <!-- ส่วนที่ 1 ข้อมูลบริการ -->
                 <div class="section-box">
                     <div class="section-header-title">ส่วนที่ 1 ข้อมูลบริการ</div>
@@ -359,7 +368,8 @@
                             </div>
                             <div class="service-field" style="flex-grow: 1; margin: 0 3px;">
                                 <span>สถานที่บริการ:</span>
-                                <input type="text" id="service_place" class="form-input" style="width: calc(100% - 65px);">
+                                <input type="text" id="service_place" class="form-input"
+                                    style="width: calc(100% - 65px);">
                             </div>
                             <div class="service-field">
                                 <span>รายการรวม:</span>
@@ -367,7 +377,8 @@
                             </div>
                             <div class="service-field" style="flex-grow: 1; margin: 0 3px;">
                                 <span>หน่วยบริการ:</span>
-                                <input type="text" id="service_unit" class="form-input" style="width: calc(100% - 65px);">
+                                <input type="text" id="service_unit" class="form-input"
+                                    style="width: calc(100% - 65px);">
                             </div>
                             <div class="service-field">
                                 <span>ลำดับ:</span>
@@ -385,22 +396,27 @@
                         <div class="service-info-row" style="margin-bottom: 2px;">
                             <div class="service-field" style="flex-grow: 1.5; margin-right: 4px;">
                                 <span>ชื่อ-สกุล:</span>
-                                <input type="text" id="fullname" class="form-input" style="width: calc(100% - 48px); text-align: left; padding-left: 4px;">
+                                <input type="text" id="fullname" class="form-input"
+                                    style="width: calc(100% - 48px); text-align: left; padding-left: 4px;">
                             </div>
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>เพศ:</span>
                                 <span style="margin-left: 2px;">
-                                    <label class="check-item"><input type="radio" name="gender" value="male" class="real-checkbox" onchange="calculateAll()"> ชาย</label> &nbsp; 
-                                    <label class="check-item"><input type="radio" name="gender" value="female" class="real-checkbox" onchange="calculateAll()"> หญิง</label>
+                                    <label class="check-item"><input type="radio" name="gender" value="male"
+                                            class="real-checkbox" onchange="calculateAll()"> ชาย</label> &nbsp;
+                                    <label class="check-item"><input type="radio" name="gender" value="female"
+                                            class="real-checkbox" onchange="calculateAll()"> หญิง</label>
                                 </span>
                             </div>
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>วันเกิด:</span>
-                                <input type="text" id="birthdate" class="form-input" style="width: 75px;" placeholder="วว/ดด/ปปปป">
+                                <input type="text" id="birthdate" class="form-input" style="width: 75px;"
+                                    placeholder="วว/ดด/ปปปป">
                             </div>
                             <div class="service-field">
                                 <span>อายุ:</span>
-                                <input type="number" id="age" class="form-input" style="width: 36px;" oninput="calculateAll()">
+                                <input type="number" id="age" class="form-input" style="width: 36px;"
+                                    oninput="calculateAll()">
                                 <span style="margin-left: 2px;">ปี</span>
                             </div>
                         </div>
@@ -410,30 +426,43 @@
                             <div class="service-field" style="margin-right: 6px;">
                                 <span>บัญชี:</span>
                                 <span style="margin-left: 2px;">
-                                    <label class="check-item"><input type="radio" name="account_type" value="1" class="real-checkbox"> 1</label> &nbsp; 
-                                    <label class="check-item"><input type="radio" name="account_type" value="2" class="real-checkbox"> 2</label> &nbsp; 
-                                    <label class="check-item"><input type="radio" name="account_type" value="other" class="real-checkbox"> อื่นๆ</label>
+                                    <label class="check-item"><input type="radio" name="account_type" value="1"
+                                            class="real-checkbox"> 1</label> &nbsp;
+                                    <label class="check-item"><input type="radio" name="account_type" value="2"
+                                            class="real-checkbox"> 2</label> &nbsp;
+                                    <label class="check-item"><input type="radio" name="account_type" value="other"
+                                            class="real-checkbox"> อื่นๆ</label>
                                     <input type="text" id="account_other" class="form-input" style="width: 22px;">
                                 </span>
                             </div>
                             <div class="service-field" style="flex-grow: 1; margin-right: 6px;">
                                 <span>เลขประชาชน:</span>
                                 <div class="id-card-container">
-                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_0"></div>
+                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit"
+                                            id="cid_0"></div>
                                     <span class="id-dash">-</span>
                                     <div class="id-card-boxes">
-                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_1"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_2"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_3"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_4">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_1"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_2"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_3"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_4">
                                     </div>
                                     <span class="id-dash">-</span>
                                     <div class="id-card-boxes">
-                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_5"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_6"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_7"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_8"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_9">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_5"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_6"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_7"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_8"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_9">
                                     </div>
                                     <span class="id-dash">-</span>
                                     <div class="id-card-boxes">
-                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_10"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_11">
+                                        <input type="text" maxlength="1" class="id-box cid-digit" id="cid_10"><input
+                                            type="text" maxlength="1" class="id-box cid-digit" id="cid_11">
                                     </div>
                                     <span class="id-dash">-</span>
-                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit" id="cid_12"></div>
+                                    <div class="id-card-boxes"><input type="text" maxlength="1" class="id-box cid-digit"
+                                            id="cid_12"></div>
                                 </div>
                             </div>
                             <div class="service-field" style="flex-shrink: 1; min-width: 0;">
@@ -462,7 +491,8 @@
                             </div>
                             <div class="service-field" style="flex-grow: 1.5; margin-right: 3px;">
                                 <span>ตำบล:</span>
-                                <input type="text" id="subdistrict" class="form-input" style="width: calc(100% - 30px);">
+                                <input type="text" id="subdistrict" class="form-input"
+                                    style="width: calc(100% - 30px);">
                             </div>
                             <div class="service-field" style="flex-grow: 1.5;">
                                 <span>อำเภอ:</span>
@@ -480,24 +510,29 @@
                         <div class="service-info-row" style="margin-bottom: 2px;">
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>น้ำหนัก:</span>
-                                <input type="number" step="0.1" id="weight" class="form-input" style="width: 32px;" oninput="calculateAll()">
+                                <input type="number" step="0.1" id="weight" class="form-input" style="width: 32px;"
+                                    oninput="calculateAll()">
                                 <span style="margin-left: 1px;">kg</span>
                             </div>
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>สูง:</span>
-                                <input type="number" step="0.1" id="height" class="form-input" style="width: 36px;" oninput="calculateAll()">
+                                <input type="number" step="0.1" id="height" class="form-input" style="width: 36px;"
+                                    oninput="calculateAll()">
                                 <span style="margin-left: 1px;">cm</span>
                             </div>
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>เอว:</span>
-                                <input type="number" step="0.1" id="waist" class="form-input" style="width: 38px;" oninput="calculateAll()">
+                                <input type="number" step="0.1" id="waist" class="form-input" style="width: 38px;"
+                                    oninput="calculateAll()">
                                 <span style="margin-left: 1px;">cm</span>
                             </div>
                             <div class="service-field" style="margin-right: 4px;">
                                 <span>BP:</span>
-                                <input type="number" id="bp_sys" class="form-input" style="width: 40px;" oninput="calculateAll()">
+                                <input type="number" id="bp_sys" class="form-input" style="width: 40px;"
+                                    oninput="calculateAll()">
                                 <span style="margin: 0 1px; font-weight: bold;">/</span>
-                                <input type="number" id="bp_dia" class="form-input" style="width: 40px;" oninput="calculateAll()">
+                                <input type="number" id="bp_dia" class="form-input" style="width: 40px;"
+                                    oninput="calculateAll()">
                                 <span style="margin-left: 1px;">mmHg</span>
                             </div>
                             <div class="service-field">
@@ -521,50 +556,78 @@
                                 <tr>
                                     <td>• เป็นโรคเบาหวาน หรือไม่</td>
                                     <td style="text-align: center; white-space: nowrap;">
-                                        <label class="check-item"><input type="radio" name="dm_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
-                                        <label class="check-item"><input type="radio" name="dm_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                        <label class="check-item"><input type="radio" name="dm_history" value="yes"
+                                                class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp;
+                                        <label class="check-item"><input type="radio" name="dm_history" value="no"
+                                                class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
                                     </td>
                                     <td>• พฤติกรรมการสูบบุหรี่</td>
                                     <td style="text-align: center; white-space: nowrap;">
-                                        <label class="check-item"><input type="radio" name="smoke_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
-                                        <label class="check-item"><input type="radio" name="smoke_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                        <label class="check-item"><input type="radio" name="smoke_history" value="yes"
+                                                class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp;
+                                        <label class="check-item"><input type="radio" name="smoke_history" value="no"
+                                                class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>• เป็นโรคความดันโลหิตสูงหรือไม่</td>
                                     <td style="text-align: center; white-space: nowrap;">
-                                        <label class="check-item"><input type="radio" name="ht_history" value="yes" class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp; 
-                                        <label class="check-item"><input type="radio" name="ht_history" value="no" class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
+                                        <label class="check-item"><input type="radio" name="ht_history" value="yes"
+                                                class="real-checkbox" onchange="calculateAll()"> ใช่</label> &nbsp;
+                                        <label class="check-item"><input type="radio" name="ht_history" value="no"
+                                                class="real-checkbox" onchange="calculateAll()"> ไม่ใช่</label>
                                     </td>
                                     <td>• พฤติกรรมการดื่มสุรา</td>
                                     <td style="text-align: center; white-space: nowrap;">
-                                        <label class="check-item"><input type="radio" name="alcohol_history" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
-                                        <label class="check-item"><input type="radio" name="alcohol_history" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                        <label class="check-item"><input type="radio" name="alcohol_history" value="yes"
+                                                class="real-checkbox"> ใช่</label> &nbsp;
+                                        <label class="check-item"><input type="radio" name="alcohol_history" value="no"
+                                                class="real-checkbox"> ไม่ใช่</label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>• ผลเลือด น้ำตาล ล่าสุด (FBS) <input type="number" id="fbs" class="form-input" style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
+                                    <td>• ผลเลือด น้ำตาล ล่าสุด (FBS) <input type="number" id="fbs" class="form-input"
+                                            style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
                                     <td style="text-align: center;">-</td>
-                                    <td>• ผลเลือด Cholesterol ล่าสุด <input type="number" id="cholesterol" class="form-input" style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
+                                    <td>• ผลเลือด Cholesterol ล่าสุด <input type="number" id="cholesterol"
+                                            class="form-input" style="width: 36px;" oninput="calculateAll()"> mg/dL</td>
                                     <td style="text-align: center;">-</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="padding: 1px 2px;">
-                                        ผล BMI <input type="text" id="bmi_value" class="form-input" style="width: 34px; font-weight: bold;" readonly> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="bmi_under" class="real-checkbox" onclick="return false;"> ผอม (&lt;18.5)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="bmi_normal" class="real-checkbox" onclick="return false;"> ปกติ (18.5-22.9)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="bmi_over" class="real-checkbox" onclick="return false;"> ท้วม (23.0-24.9)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="bmi_obese1" class="real-checkbox" onclick="return false;"> อ้วน (25.0-29.9)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="bmi_obese2" class="real-checkbox" onclick="return false;"> อ้วนมาก (&ge;30)</label>
+                                        ผล BMI <input type="text" id="bmi_value" class="form-input"
+                                            style="width: 34px; font-weight: bold;" readonly> &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="bmi_under"
+                                                class="real-checkbox" onclick="return false;"> ผอม (&lt;18.5)</label>
+                                        &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="bmi_normal"
+                                                class="real-checkbox" onclick="return false;"> ปกติ (18.5-22.9)</label>
+                                        &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="bmi_over"
+                                                class="real-checkbox" onclick="return false;"> ท้วม (23.0-24.9)</label>
+                                        &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="bmi_obese1"
+                                                class="real-checkbox" onclick="return false;"> อ้วน (25.0-29.9)</label>
+                                        &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="bmi_obese2"
+                                                class="real-checkbox" onclick="return false;"> อ้วนมาก (&ge;30)</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="padding: 1px 2px;">
-                                        แปลผลรอบเอว: 
-                                        <label class="check-item"><input type="checkbox" id="waist_m_normal" class="real-checkbox" onclick="return false;"> ชายปกติ (&le;90ซม.)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="waist_m_risk" class="real-checkbox" onclick="return false;"> ชายเกิน (&gt;90ซม.)</label> &nbsp; &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="waist_f_normal" class="real-checkbox" onclick="return false;"> หญิงปกติ (&le;80ซม.)</label> &nbsp; 
-                                        <label class="check-item"><input type="checkbox" id="waist_f_risk" class="real-checkbox" onclick="return false;"> หญิงเกิน (&gt;80ซม.)</label>
+                                        แปลผลรอบเอว:
+                                        <label class="check-item"><input type="checkbox" id="waist_m_normal"
+                                                class="real-checkbox" onclick="return false;"> ชายปกติ
+                                            (&le;90ซม.)</label> &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="waist_m_risk"
+                                                class="real-checkbox" onclick="return false;"> ชายเกิน
+                                            (&gt;90ซม.)</label> &nbsp; &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="waist_f_normal"
+                                                class="real-checkbox" onclick="return false;"> หญิงปกติ
+                                            (&le;80ซม.)</label> &nbsp;
+                                        <label class="check-item"><input type="checkbox" id="waist_f_risk"
+                                                class="real-checkbox" onclick="return false;"> หญิงเกิน
+                                            (&gt;80ซม.)</label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -574,25 +637,43 @@
 
                 <!-- ส่วนที่ 4 และ ส่วนที่ 5 จัดเรียงแบบ 2 คอลัมน์ขนานกัน -->
                 <div class="row-two-columns">
-                    
+
                     <!-- ส่วนที่ 4 ความเสี่ยง CVD และความดันโลหิต (คอลัมน์ซ้าย) -->
                     <div class="column-half">
                         <div class="section-box">
                             <div class="section-header-title">ส่วนที่ 4 ความเสี่ยง CVD และความดันโลหิต</div>
                             <div class="service-info-box">
-                                <div class="service-info-row" style="align-items: center; margin-bottom: 2px; flex-wrap: wrap;">
-                                    <div class="service-field">
-                                        <span>ความเสี่ยงใน 10 ปี:</span>
-                                        <input type="text" id="cvd_risk_value" class="form-input" style="width: 36px; font-weight: bold;" readonly>
-                                        <span style="margin-left: 1px;">%</span>
+                                <div class="service-info-row"
+                                    style="align-items: center; margin-bottom: 1px; flex-wrap: wrap;">
+                                    <div class="service-field" style="margin-bottom: 1px;">
+                                        <span>ความเสี่ยง:</span>
+                                        <input type="text" id="cvd_risk_value" class="form-input"
+                                            style="width: 32px; font-weight: bold;" readonly>
+                                        <span style="margin-left: 1px;">% (ใช้สูตร HDC 5 กลุ่ม ระบุ Cholesterol หรือ
+                                            (รอบเอว และ ส่วนสูง))</span>
                                     </div>
-                                    <div class="service-field" style="width: 100%; margin-top: 1px; justify-content: space-between;">
-                                        <span><label class="check-item"><input type="checkbox" id="cvd_low" class="real-checkbox" onclick="return false;"> เสี่ยงน้อย (&le;9%)</label></span>
-                                        <span><label class="check-item"><input type="checkbox" id="cvd_mod" class="real-checkbox" onclick="return false;"> ปานกลาง (10-19%)</label></span>
+                                    <!-- บรรทัดบน: 3 ช่อง (ย่อข้อความให้สั้นกระชับเพื่อไม่ให้ล้น) -->
+                                    <div class="service-field"
+                                        style="width: 100%; justify-content: space-between; font-size: 7.2pt;">
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_l1"
+                                                    class="real-checkbox" onclick="return false;">
+                                                1:ต่ำ(&lt;10%)</label></span>
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_l2"
+                                                    class="real-checkbox" onclick="return false;">
+                                                2:ปานกลาง(10-19%)</label></span>
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_l3"
+                                                    class="real-checkbox" onclick="return false;">
+                                                3:สูง(20-29%)</label></span>
                                     </div>
-                                    <div class="service-field" style="width: 100%; margin-top: 1px; justify-content: space-between;">
-                                        <span><label class="check-item"><input type="checkbox" id="cvd_high" class="real-checkbox" onclick="return false;"> เสี่ยงสูง (20-30%)</label></span>
-                                        <span><label class="check-item"><input type="checkbox" id="cvd_very_high" class="real-checkbox" onclick="return false;"> สูงมาก (&gt;30%)</label></span>
+                                    <!-- บรรทัดล่าง: 2 ช่อง -->
+                                    <div class="service-field"
+                                        style="width: 100%; margin-top: 1px; justify-content: space-between; font-size: 7.2pt;">
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_l4"
+                                                    class="real-checkbox" onclick="return false;">
+                                                4:สูงมาก(30-39%)</label></span>
+                                        <span><label class="check-item"><input type="checkbox" id="cvd_l5"
+                                                    class="real-checkbox" onclick="return false;">
+                                                5:อันตราย(&ge;40%)</label></span>
                                     </div>
                                 </div>
 
@@ -608,37 +689,49 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_3" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 3</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_3" class="real-checkbox"
+                                                        onclick="return false;"> ความดันสูง ขั้นที่ 3</label></td>
                                             <td style="text-align: right;">&ge;180</td>
                                             <td style="text-align: right;">&ge;110</td>
                                             <td>รีบพบแพทย์</td>
                                         </tr>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_2" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 2</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_2" class="real-checkbox"
+                                                        onclick="return false;"> ความดันสูง ขั้นที่ 2</label></td>
                                             <td style="text-align: right;">160–179</td>
                                             <td style="text-align: right;">100–109</td>
                                             <td>รีบพบแพทย์</td>
                                         </tr>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_1" class="real-checkbox" onclick="return false;"> ความดันสูง ขั้นที่ 1</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_1" class="real-checkbox"
+                                                        onclick="return false;"> ความดันสูง ขั้นที่ 1</label></td>
                                             <td style="text-align: right;">140–159</td>
                                             <td style="text-align: right;">90–99</td>
                                             <td>รีบพบแพทย์</td>
                                         </tr>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_risk" class="real-checkbox" onclick="return false;"> เสี่ยง</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_risk" class="real-checkbox"
+                                                        onclick="return false;"> เสี่ยง</label></td>
                                             <td style="text-align: right;">130–139</td>
                                             <td style="text-align: right;">80–89</td>
                                             <td>ปรับพฤติกรรม</td>
                                         </tr>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_normal" class="real-checkbox" onclick="return false;"> ปกติ</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_normal" class="real-checkbox"
+                                                        onclick="return false;"> ปกติ</label></td>
                                             <td style="text-align: right;">120–129</td>
                                             <td style="text-align: right;">&lt;80</td>
                                             <td>ดูแลสุขภาพ</td>
                                         </tr>
                                         <tr>
-                                            <td style="white-space: nowrap;"><label class="check-item"><input type="checkbox" id="bp_stage_opt" class="real-checkbox" onclick="return false;"> เหมาะสม</label></td>
+                                            <td style="white-space: nowrap;"><label class="check-item"><input
+                                                        type="checkbox" id="bp_stage_opt" class="real-checkbox"
+                                                        onclick="return false;"> เหมาะสม</label></td>
                                             <td style="text-align: right;">90–119</td>
                                             <td style="text-align: right;">60–79</td>
                                             <td>ดูแลสุขภาพ</td>
@@ -654,26 +747,33 @@
                         <div class="section-box">
                             <div class="section-header-title">ส่วนที่ 5 แบบคัดกรองวัณโรค (TB Screening)</div>
                             <div class="service-info-box">
-                                <div class="service-info-row" style="margin-bottom: 2px; flex-direction: column; align-items: flex-start; gap: 1px;">
+                                <div class="service-info-row"
+                                    style="margin-bottom: 2px; flex-direction: column; align-items: flex-start; gap: 1px;">
                                     <div class="service-field">
                                         <span>• ประวัติรักษา/เคยป่วยวัณโรค?</span>
                                         <span style="margin-left: 2px;">
-                                            <label class="check-item"><input type="radio" name="tb_history" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
-                                            <label class="check-item"><input type="radio" name="tb_history" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                            <label class="check-item"><input type="radio" name="tb_history" value="yes"
+                                                    class="real-checkbox"> ใช่</label> &nbsp;
+                                            <label class="check-item"><input type="radio" name="tb_history" value="no"
+                                                    class="real-checkbox"> ไม่ใช่</label>
                                         </span>
                                     </div>
                                     <div class="service-field">
                                         <span>• ประวัติสัมผัสผู้ป่วยวัณโรค?</span>
                                         <span style="margin-left: 2px;">
-                                            <label class="check-item"><input type="radio" name="tb_contact" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
-                                            <label class="check-item"><input type="radio" name="tb_contact" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                            <label class="check-item"><input type="radio" name="tb_contact" value="yes"
+                                                    class="real-checkbox"> ใช่</label> &nbsp;
+                                            <label class="check-item"><input type="radio" name="tb_contact" value="no"
+                                                    class="real-checkbox"> ไม่ใช่</label>
                                         </span>
                                     </div>
                                     <div class="service-field">
                                         <span>• ภายใน 6 เดือน X-ray ปอด?</span>
                                         <span style="margin-left: 2px;">
-                                            <label class="check-item"><input type="radio" name="tb_xray" value="yes" class="real-checkbox"> ใช่</label> &nbsp; 
-                                            <label class="check-item"><input type="radio" name="tb_xray" value="no" class="real-checkbox"> ไม่ใช่</label>
+                                            <label class="check-item"><input type="radio" name="tb_xray" value="yes"
+                                                    class="real-checkbox"> ใช่</label> &nbsp;
+                                            <label class="check-item"><input type="radio" name="tb_xray" value="no"
+                                                    class="real-checkbox"> ไม่ใช่</label>
                                         </span>
                                     </div>
                                 </div>
@@ -694,49 +794,65 @@
                                             <td style="text-align: center;">1</td>
                                             <td>ไอทุกวันเกิน 2 สัปดาห์</td>
                                             <td style="text-align: center;">3</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="3" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="3"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q1" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">2</td>
                                             <td>ไอเป็นเลือดใน 1 เดือนที่ผ่านมา</td>
                                             <td style="text-align: center;">3</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="3" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="3"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q2" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">3</td>
                                             <td>ไอน้อยกว่า 2 สัปดาห์</td>
                                             <td style="text-align: center;">2</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="2" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="2"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q3" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">4</td>
                                             <td>น้ำหนักลดโดยไม่ทราบสาเหตุ</td>
                                             <td style="text-align: center;">1</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="1" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="1"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q4" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">5</td>
                                             <td>มีไข้ทุกวันนาน 1 สัปดาห์</td>
                                             <td style="text-align: center;">1</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="1" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="1"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q5" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">6</td>
                                             <td>เหงื่อออกมากผิดปกติกลางคืน</td>
                                             <td style="text-align: center;">1</td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="1" class="real-checkbox" onchange="calcTB()"></td>
-                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="0" class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="1"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
+                                            <td style="text-align: center;"><input type="radio" name="tb_q6" value="0"
+                                                    class="real-checkbox" onchange="calcTB()"></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" style="padding: 1px 2px; font-weight: 600;">
-                                                คะแนนรวม: 
-                                                <label class="check-item"><input type="checkbox" id="tb_res_normal" class="real-checkbox" onclick="return false;"> ปกติ</label> &nbsp; 
-                                                <label class="check-item"><input type="checkbox" id="tb_res_suspect" class="real-checkbox" onclick="return false;"> สงสัย TB (&ge;3)</label>
+                                                คะแนนรวม:
+                                                <label class="check-item"><input type="checkbox" id="tb_res_normal"
+                                                        class="real-checkbox" onclick="return false;"> ปกติ</label>
+                                                &nbsp;
+                                                <label class="check-item"><input type="checkbox" id="tb_res_suspect"
+                                                        class="real-checkbox" onclick="return false;"> สงสัย TB
+                                                    (&ge;3)</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -756,15 +872,18 @@
                             <div class="column-half" style="gap: 2px; display: flex; flex-direction: column;">
                                 <!-- ส่วนที่ 6.1 ความเครียด ST5 -->
                                 <div style="border: 1px solid #000; padding: 2px; background-color: #fff;">
-                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.1 แบบประเมินความเครียด (ST5)</div>
+                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.1
+                                        แบบประเมินความเครียด (ST5)</div>
                                     <div style="font-size: 7.5pt; margin-bottom: 1px; color: #222; line-height: 1.25;">
-                                        <span><b>0</b>=เป็นน้อยมาก/ไม่มี | <b>1</b>=เป็นบางครั้ง | <b>2</b>=เป็นบ่อยครั้ง | <b>3</b>=เป็นประจำ</span>
+                                        <span><b>0</b>=เป็นน้อยมาก/ไม่มี | <b>1</b>=เป็นบางครั้ง |
+                                            <b>2</b>=เป็นบ่อยครั้ง | <b>3</b>=เป็นประจำ</span>
                                     </div>
                                     <table class="health-table" style="font-size: 7.5pt; margin-top: 1px;">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%; text-align: center;">ข้อ</th>
-                                                <th style="width: 59%; text-align: left;">อาการหรือความรู้สึก (2-4 สัปดาห์)</th>
+                                                <th style="width: 59%; text-align: left;">อาการหรือความรู้สึก (2-4
+                                                    สัปดาห์)</th>
                                                 <th style="width: 9%; text-align: center;">0</th>
                                                 <th style="width: 9%; text-align: center;">1</th>
                                                 <th style="width: 9%; text-align: center;">2</th>
@@ -775,49 +894,75 @@
                                             <tr>
                                                 <td style="text-align: center;">1</td>
                                                 <td>นอนไม่หลับหรือนอนมาก</td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="0" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="1" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="2" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q1" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1"
+                                                        value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1"
+                                                        value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1"
+                                                        value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q1"
+                                                        value="3" class="real-checkbox" onchange="calcST5()"></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">2</td>
                                                 <td>มีสมาธิน้อยลง</td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="0" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="1" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="2" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q2" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2"
+                                                        value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2"
+                                                        value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2"
+                                                        value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q2"
+                                                        value="3" class="real-checkbox" onchange="calcST5()"></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">3</td>
                                                 <td>หงุดหงิด/กระวนกระวาย</td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="0" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="1" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="2" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q3" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3"
+                                                        value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3"
+                                                        value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3"
+                                                        value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q3"
+                                                        value="3" class="real-checkbox" onchange="calcST5()"></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">4</td>
                                                 <td>รู้สึกเบื่อ เซ็ง</td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="0" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="1" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="2" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q4" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4"
+                                                        value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4"
+                                                        value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4"
+                                                        value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q4"
+                                                        value="3" class="real-checkbox" onchange="calcST5()"></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">5</td>
                                                 <td>ไม่อยากพบปะผู้คน</td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="0" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="1" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="2" class="real-checkbox" onchange="calcST5()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="st5_q5" value="3" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5"
+                                                        value="0" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5"
+                                                        value="1" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5"
+                                                        value="2" class="real-checkbox" onchange="calcST5()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="st5_q5"
+                                                        value="3" class="real-checkbox" onchange="calcST5()"></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="6" style="padding: 1px; font-weight: 600;">
-                                                    รวมคะแนน ST5: 
-                                                    <label class="check-item"><input type="checkbox" id="st5_low" class="real-checkbox" onclick="return false;"> 0-4 น้อย</label> 
-                                                    <label class="check-item"><input type="checkbox" id="st5_mod" class="real-checkbox" onclick="return false;"> 5-7 ปานกลาง</label> 
-                                                    <label class="check-item"><input type="checkbox" id="st5_high" class="real-checkbox" onclick="return false;"> 8ขึ้นไป มาก</label>
+                                                    รวมคะแนน ST5:
+                                                    <label class="check-item"><input type="checkbox" id="st5_low"
+                                                            class="real-checkbox" onclick="return false;"> 0-4
+                                                        น้อย</label>
+                                                    <label class="check-item"><input type="checkbox" id="st5_mod"
+                                                            class="real-checkbox" onclick="return false;"> 5-7
+                                                        ปานกลาง</label>
+                                                    <label class="check-item"><input type="checkbox" id="st5_high"
+                                                            class="real-checkbox" onclick="return false;"> 8ขึ้นไป
+                                                        มาก</label>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -826,7 +971,8 @@
 
                                 <!-- ส่วนที่ 6.2 การคัดกรองโรคซึมเศร้า (2Q) -->
                                 <div style="border: 1px solid #000; padding: 2px; background-color: #fff;">
-                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.2 การคัดกรองโรคซึมเศร้า (2Q)</div>
+                                    <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.2
+                                        การคัดกรองโรคซึมเศร้า (2Q)</div>
                                     <div style="font-size: 7.5pt; margin-bottom: 1px; color: #222;">
                                         <span>ใน 2 สัปดาห์ ท่านมีอาการ</span>
                                     </div>
@@ -834,7 +980,8 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 8%; text-align: center;">ข้อ</th>
-                                                <th style="width: 64%; text-align: left;">อาการ (ใน 2 สัปดาห์ที่ผ่านมา)</th>
+                                                <th style="width: 64%; text-align: left;">อาการ (ใน 2 สัปดาห์ที่ผ่านมา)
+                                                </th>
                                                 <th style="width: 14%; text-align: center;">มี</th>
                                                 <th style="width: 14%; text-align: center;">ไม่มี</th>
                                             </tr>
@@ -843,20 +990,28 @@
                                             <tr>
                                                 <td style="text-align: center;">1</td>
                                                 <td>หดหู่ เศร้า หรือท้อแท้สิ้นหวัง</td>
-                                                <td style="text-align: center;"><input type="radio" name="q2_1" value="1" class="real-checkbox" onchange="calc2Q()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="q2_1" value="0" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_1"
+                                                        value="1" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_1"
+                                                        value="0" class="real-checkbox" onchange="calc2Q()"></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">2</td>
                                                 <td>เบื่อ ทำอะไรก็ไม่เพลิดเพลิน</td>
-                                                <td style="text-align: center;"><input type="radio" name="q2_2" value="1" class="real-checkbox" onchange="calc2Q()"></td>
-                                                <td style="text-align: center;"><input type="radio" name="q2_2" value="0" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_2"
+                                                        value="1" class="real-checkbox" onchange="calc2Q()"></td>
+                                                <td style="text-align: center;"><input type="radio" name="q2_2"
+                                                        value="0" class="real-checkbox" onchange="calc2Q()"></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="4" style="padding: 1px; font-weight: 600;">
-                                                    รวม 2Q: 
-                                                    <label class="check-item"><input type="checkbox" id="q2_normal" class="real-checkbox" onclick="return false;"> ไม่มี=ปกติ</label> &nbsp; 
-                                                    <label class="check-item"><input type="checkbox" id="q2_abnormal" class="real-checkbox" onclick="return false;"> มีตั้งแต่ 1ข้อขึ้นไป =ทำ 9Q</label>
+                                                    รวม 2Q:
+                                                    <label class="check-item"><input type="checkbox" id="q2_normal"
+                                                            class="real-checkbox" onclick="return false;">
+                                                        ไม่มี=ปกติ</label> &nbsp;
+                                                    <label class="check-item"><input type="checkbox" id="q2_abnormal"
+                                                            class="real-checkbox" onclick="return false;"> มีตั้งแต่
+                                                        1ข้อขึ้นไป =ทำ 9Q</label>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -866,10 +1021,13 @@
 
                             <!-- คอลัมน์ขวา: บรรจุ 6.3 (9Q) เต็มความสูง -->
                             <div class="column-half">
-                                <div style="border: 1px solid #000; padding: 2px; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div
+                                    style="border: 1px solid #000; padding: 2px; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                                     <div>
-                                        <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.3 แบบประเมินโรคซึมเศร้า (9Q)</div>
-                                        <div style="font-size: 7.2pt; margin-bottom: 1px; display: flex; flex-wrap: wrap; gap: 3px; color: #222; line-height: 1.25;">
+                                        <div style="font-weight: 700; font-size: 8.5pt; margin-bottom: 1px;">6.3
+                                            แบบประเมินโรคซึมเศร้า (9Q)</div>
+                                        <div
+                                            style="font-size: 7.2pt; margin-bottom: 1px; display: flex; flex-wrap: wrap; gap: 3px; color: #222; line-height: 1.25;">
                                             <span><b>0</b>=เป็นน้อยมาก/ไม่มี</span>
                                             <span><b>1</b>=เป็นบางครั้ง(1-7วัน)</span>
                                             <span><b>2</b>=เป็นบ่อยครั้ง(&gt;7วัน)</span>
@@ -879,7 +1037,8 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 4%; text-align: center;">ข้อ</th>
-                                                    <th style="width: 72%; text-align: left;">ใน 2 สัปดาห์ ท่านมีอาการ...</th>
+                                                    <th style="width: 72%; text-align: left;">ใน 2 สัปดาห์
+                                                        ท่านมีอาการ...</th>
                                                     <th style="width: 6%; text-align: center;">0</th>
                                                     <th style="width: 6%; text-align: center;">1</th>
                                                     <th style="width: 6%; text-align: center;">2</th>
@@ -890,83 +1049,124 @@
                                                 <tr>
                                                     <td style="text-align: center;">1</td>
                                                     <td>เบื่อ ไม่สนใจทำอะไร</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_1" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_1"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">2</td>
                                                     <td>ไม่สบายใจ ซึมเศร้า ท้อแท้</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_2" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_2"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">3</td>
                                                     <td>หลับยาก หลับๆ ตื่นๆ</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_3" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_3"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">4</td>
                                                     <td>เหนื่อยง่ายหรือไม่ค่อยมีแรง</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_4" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_4"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">5</td>
                                                     <td>เบื่ออาหาร หรือกินมากเกินไป</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_5" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_5"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6</td>
                                                     <td>รู้สึกไม่ดีกับตัวเอง คิดว่าล้มเหลว</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_6" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_6"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">7</td>
                                                     <td>สมาธิไม่ดีเวลาทำอะไร</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_7" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_7"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">8</td>
                                                     <td>พูด/ทำอะไรช้าลง กระสับกระส่าย</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_8" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_8"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">9</td>
                                                     <td>คิดทำร้ายตนเอง หรืออยากตาย</td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="0" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="1" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="2" class="real-checkbox" onchange="calc9Q()"></td>
-                                                    <td style="text-align: center;"><input type="radio" name="q9_9" value="3" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9"
+                                                            value="0" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9"
+                                                            value="1" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9"
+                                                            value="2" class="real-checkbox" onchange="calc9Q()"></td>
+                                                    <td style="text-align: center;"><input type="radio" name="q9_9"
+                                                            value="3" class="real-checkbox" onchange="calc9Q()"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div style="padding: 1px; font-weight: 600; font-size: 7.5pt; border-top: 1px solid #000; margin-top: 2px;">
-                                        รวม 9Q: 
-                                        <label class="check-item"><input type="checkbox" id="q9_normal" class="real-checkbox" onclick="return false;"> 0-6 ปกติ</label> 
-                                        <label class="check-item"><input type="checkbox" id="q9_mild" class="real-checkbox" onclick="return false;"> 7-12 น้อย</label> 
-                                        <label class="check-item"><input type="checkbox" id="q9_mod_sev" class="real-checkbox" onclick="return false;"> 13+ ปานกลาง-รุนแรง</label>
+                                    <div
+                                        style="padding: 1px; font-weight: 600; font-size: 7.5pt; border-top: 1px solid #000; margin-top: 2px;">
+                                        รวม 9Q:
+                                        <label class="check-item"><input type="checkbox" id="q9_normal"
+                                                class="real-checkbox" onclick="return false;"> 0-6 ปกติ</label>
+                                        <label class="check-item"><input type="checkbox" id="q9_mild"
+                                                class="real-checkbox" onclick="return false;"> 7-12 น้อย</label>
+                                        <label class="check-item"><input type="checkbox" id="q9_mod_sev"
+                                                class="real-checkbox" onclick="return false;"> 13+
+                                            ปานกลาง-รุนแรง</label>
                                     </div>
                                 </div>
                             </div>
@@ -980,49 +1180,71 @@
                     <div class="service-info-box">
                         <div style="display: flex; gap: 4px;">
                             <!-- คอลัมน์ซ้าย: รายการที่ต้องตรวจ พร้อมหมายเหตุ -->
-                            <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div
+                                style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; justify-content: space-between;">
                                 <div>
-                                    <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">รายการที่ต้องตรวจ</div>
+                                    <div
+                                        style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">
+                                        รายการที่ต้องตรวจ</div>
                                     <div style="font-size: 7.8pt; line-height: 1.5;">
-                                        <div><label class="check-item"><input type="checkbox" id="lab_fbs" class="real-checkbox"> FBS (อายุ 35+)</label></div>
-                                        <div><label class="check-item"><input type="checkbox" id="lab_bun" class="real-checkbox"> BUN</label></div>
-                                        <div><label class="check-item"><input type="checkbox" id="lab_cr" class="real-checkbox"> Creatinine</label></div>
-                                        <div><label class="check-item"><input type="checkbox" id="lab_lipid" class="real-checkbox"> Lipid Profile</label></div>
-                                        <div><label class="check-item"><input type="checkbox" id="lab_ua" class="real-checkbox"> UA (ปัสสาวะ)</label></div>
-                                        <div><label class="check-item"><input type="checkbox" id="lab_xray" class="real-checkbox"> XRay</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_fbs"
+                                                    class="real-checkbox"> FBS (อายุ 35+)</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_bun"
+                                                    class="real-checkbox"> BUN</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_cr"
+                                                    class="real-checkbox"> Creatinine</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_lipid"
+                                                    class="real-checkbox"> Lipid Profile</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_ua"
+                                                    class="real-checkbox"> UA (ปัสสาวะ)</label></div>
+                                        <div><label class="check-item"><input type="checkbox" id="lab_xray"
+                                                    class="real-checkbox"> XRay</label></div>
                                     </div>
                                 </div>
-                                <div style="font-size: 7.0pt; color: #333; margin-top: 2px; border-top: 0.5px dashed #666; padding-top: 1px;">
-                                    <span>หมายเหตุ:</span> <input type="text" id="lab_remark" class="form-input" style="width: calc(100% - 48px); border-bottom: none; text-align: left;">
+                                <div
+                                    style="font-size: 7.0pt; color: #333; margin-top: 2px; border-top: 0.5px dashed #666; padding-top: 1px;">
+                                    <span>หมายเหตุ:</span> <input type="text" id="lab_remark" class="form-input"
+                                        style="width: calc(100% - 48px); border-bottom: none; text-align: left;">
                                 </div>
                             </div>
 
                             <!-- คอลัมน์กลาง: ประเมินสุขภาพ / QR Code -->
-                            <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center;">
-                                <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px; width: 100%; text-align: left;">ประเมินสุขภาพ</div>
+                            <div
+                                style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center;">
+                                <div
+                                    style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px; width: 100%; text-align: left;">
+                                    ประเมินสุขภาพ</div>
                                 <div style="padding: 2px 0;">
-                                    <div style="width: 88px; height: 88px; border: 1px solid #000; margin: 0 auto 2px auto; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 8.0pt; font-weight: bold; color: #333;">
+                                    <div
+                                        style="width: 88px; height: 88px; border: 1px solid #000; margin: 0 auto 2px auto; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 8.0pt; font-weight: bold; color: #333;">
                                         QR CODE
                                     </div>
-                                    <div style="font-size: 6.8pt; color: #444; line-height: 1.2;">สแกนเพื่อคำนวนสุขภาพ</div>
+                                    <div style="font-size: 6.8pt; color: #444; line-height: 1.2;">สแกนเพื่อคำนวนสุขภาพ
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- คอลัมน์ขวา: ลงชื่อมารับบริการจริง -->
                             <div style="flex: 1; border: 1px solid #000; padding: 2px; background-color: #fff;">
-                                <div style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">ลงชื่อมารับบริการจริง</div>
+                                <div
+                                    style="font-weight: 700; font-size: 8.0pt; margin-bottom: 2px; border-bottom: 1px solid #000; padding-bottom: 1px;">
+                                    ลงชื่อมารับบริการจริง</div>
                                 <div style="font-size: 7.8pt; line-height: 1.5;">
                                     <div style="margin-bottom: 2px;">
                                         <span>ชื่อ-สกุล:</span>
-                                        <input type="text" id="signer_name" class="form-input" style="width: calc(100% - 42px); text-align: left;">
+                                        <input type="text" id="signer_name" class="form-input"
+                                            style="width: calc(100% - 42px); text-align: left;">
                                     </div>
                                     <div style="margin-bottom: 2px;">
                                         <span>เบอร์โทร:</span>
-                                        <input type="text" id="signer_phone" class="form-input" style="width: calc(100% - 45px);">
+                                        <input type="text" id="signer_phone" class="form-input"
+                                            style="width: calc(100% - 45px);">
                                     </div>
                                     <div style="margin-top: 2px;">
                                         <span>วันที่รับบริการ:</span>
-                                        <input type="text" id="svc_day" class="form-input" style="width: 20px;">/<input type="text" id="svc_month" class="form-input" style="width: 20px;">/25<input type="text" id="svc_year" class="form-input" style="width: 22px;">
+                                        <input type="text" id="svc_day" class="form-input" style="width: 20px;">/<input
+                                            type="text" id="svc_month" class="form-input" style="width: 20px;">/25<input
+                                            type="text" id="svc_year" class="form-input" style="width: 22px;">
                                     </div>
                                 </div>
                             </div>
@@ -1032,8 +1254,11 @@
 
                 <!-- หมายเหตุใต้ส่วนที่ 7 -->
                 <div class="bottom-notice">
-                    <div>• โปรดตรวจสอบข้อมูลให้ถูกต้อง ครบถ้วน เป็นปัจจุบัน | เพื่อความสะดวกรวดเร็วและเป็นระเบียบในการรับบริการ ขอความร่วมมือทำแบบประเมินให้เสร็จสิ้นก่อนเข้ารับบริการ</div>
-                    <div>• กราบขออภัยในความไม่สะดวก สามารถให้บริการได้เฉพาะตามรายชื่อที่ที่มีการตรวจสอบ และ ยืนยัน ตามที่กำหนดมาแล้วเท่านั้น</div>
+                    <div>• โปรดตรวจสอบข้อมูลให้ถูกต้อง ครบถ้วน เป็นปัจจุบัน |
+                        เพื่อความสะดวกรวดเร็วและเป็นระเบียบในการรับบริการ
+                        ขอความร่วมมือทำแบบประเมินให้เสร็จสิ้นก่อนเข้ารับบริการ</div>
+                    <div>• กราบขออภัยในความไม่สะดวก สามารถให้บริการได้เฉพาะตามรายชื่อที่ที่มีการตรวจสอบ และ ยืนยัน
+                        ตามที่กำหนดมาแล้วเท่านั้น</div>
                 </div>
 
             </div>
@@ -1086,7 +1311,7 @@
             const weight = parseFloat(document.getElementById('weight').value);
             const height = parseFloat(document.getElementById('height').value);
             const bmiInput = document.getElementById('bmi_value');
-            
+
             // เคลียร์ checkbox BMI
             document.getElementById('bmi_under').checked = false;
             document.getElementById('bmi_normal').checked = false;
@@ -1177,6 +1402,7 @@
         }
 
         // 4. คำนวณ CVD Risk (Thai CV Risk Score 2.5 Rama Model - TASCVDformular ต้นฉบับ)
+        // 4. คำนวณ CVD Risk (HDC Model - 5 ระดับ)
         function calcCVDRisk() {
             const age = parseInt(document.getElementById('age').value) || 0;
             const genderNode = document.querySelector('input[name="gender"]:checked');
@@ -1188,57 +1414,51 @@
             const dm = (dmNode && dmNode.value === 'yes') ? 1 : 0;
             const waist = parseFloat(document.getElementById('waist').value) || 0;
             const height = parseFloat(document.getElementById('height').value) || 0;
-            const tc = parseInt(document.getElementById('cholesterol').value) || 0;
+            const chol = parseInt(document.getElementById('cholesterol').value) || 0;
             const cvdInput = document.getElementById('cvd_risk_value');
 
-            document.getElementById('cvd_low').checked = false;
-            document.getElementById('cvd_mod').checked = false;
-            document.getElementById('cvd_high').checked = false;
-            document.getElementById('cvd_very_high').checked = false;
+            // 1. เคลียร์ค่า Checkbox ทั้ง 5 ระดับก่อนคำนวณใหม่
+            ['l1', 'l2', 'l3', 'l4', 'l5'].forEach(id => {
+                const el = document.getElementById('cvd_' + id);
+                if (el) el.checked = false;
+            });
 
-            if (!age || sex === null || !sbp || sbp < 70) {
+            // 2. ตรวจสอบความถูกต้องของข้อมูลเบื้องต้น
+            if (!age || sex === null || !sbp || sbp < 70 || (chol <= 0 && (waist <= 0 || height <= 0))) {
                 cvdInput.value = '';
                 return;
             }
 
-            const whr = (waist > 0 && height > 0) ? (waist / height) : 0;
-            const sur_root = 0.964588;
+            const sur_root = 0.978296; // ค่าอ้างอิงอัตรารอดชีวิตของ HDC
             let full_score = 0;
             let predicted_risk = 0;
 
-            if (tc > 0) {
-                // 1. กรณีมีผลเลือด Total Cholesterol
-                full_score = (0.08183 * age) + (0.39499 * sex) + (0.02084 * sbp) + (0.69974 * dm) + (0.00212 * tc) + (0.41916 * smoke);
-                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.04423)));
-            } else if (whr > 0) {
-                // 2. กรณีไม่มีผลเลือด แต่มีรอบเอวและส่วนสูง (WHR)
-                full_score = (0.079 * age) + (0.128 * sex) + (0.019350987 * sbp) + (0.58454 * dm) + (3.512566 * whr) + (0.459 * smoke);
-                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.712325)));
-            } else if (waist > 0) {
-                // 3. กรณีมีเฉพาะรอบเอว (WC)
-                full_score = (0.08372 * age) + (0.05988 * sex) + (0.02034 * sbp) + (0.59953 * dm) + (0.01283 * waist) + (0.459 * smoke);
-                predicted_risk = 1 - (Math.pow(sur_root, Math.exp(full_score - 7.31047)));
+            // 3. เลือกระหว่างสูตร TC หรือ WHR ตามเงื่อนไขของ HDC
+            if (chol > 0) {
+                // สูตรที่ 1: มีค่า Total Cholesterol (CHOL)
+                full_score = (0.08183 * age) + (0.39499 * sex) + (0.02084 * sbp) + (0.69974 * dm) + (0.00212 * chol) + (0.41916 * smoke);
+                predicted_risk = (1 - Math.pow(sur_root, Math.exp(full_score - 7.04423))) * 100;
             } else {
-                cvdInput.value = '';
-                return;
+                // สูตรที่ 2: ไม่มี TC แต่มีรอบเอวและส่วนสูง (WHR)
+                const whr = waist / height;
+                full_score = (0.079 * age) + (0.128 * sex) + (0.019350987 * sbp) + (0.58454 * dm) + (3.512566 * whr) + (0.459 * smoke);
+                predicted_risk = (1 - Math.pow(sur_root, Math.exp(full_score - 7.720484))) * 100;
             }
 
-            if (predicted_risk > 0) {
-                const percent = predicted_risk * 100;
-                if (predicted_risk <= 0.30) {
-                    cvdInput.value = percent.toFixed(1);
-                } else {
-                    cvdInput.value = '>30';
-                }
+            // 4. แสดงผลลัพธ์เปอร์เซ็นต์ และติ๊กถูกอัตโนมัติตามเกณฑ์ 5 ระดับของ HDC
+            if (predicted_risk >= 0) {
+                cvdInput.value = predicted_risk.toFixed(1);
 
-                if (predicted_risk < 0.10) {
-                    document.getElementById('cvd_low').checked = true;
-                } else if (predicted_risk >= 0.10 && predicted_risk < 0.20) {
-                    document.getElementById('cvd_mod').checked = true;
-                } else if (predicted_risk >= 0.20 && predicted_risk <= 0.30) {
-                    document.getElementById('cvd_high').checked = true;
+                if (predicted_risk < 10) {
+                    document.getElementById('cvd_l1').checked = true;  // ระดับ 1: ต่ำ (<10%)
+                } else if (predicted_risk < 20) {
+                    document.getElementById('cvd_l2').checked = true;  // ระดับ 2: ปานกลาง (10-19%)
+                } else if (predicted_risk < 30) {
+                    document.getElementById('cvd_l3').checked = true;  // ระดับ 3: สูง (20-29%)
+                } else if (predicted_risk < 40) {
+                    document.getElementById('cvd_l4').checked = true;  // ระดับ 4: สูงมาก (30-39%)
                 } else {
-                    document.getElementById('cvd_very_high').checked = true;
+                    document.getElementById('cvd_l5').checked = true;  // ระดับ 5: อันตราย (>=40%)
                 }
             } else {
                 cvdInput.value = '';
@@ -1373,7 +1593,7 @@
 
                 // --- ส่วนที่ 2: ข้อมูลประวัติ ---
                 if (data.fullname || data.name) document.getElementById('fullname').value = data.fullname || data.name;
-                
+
                 // เพศ (male / female หรือ 1 / 0 หรือ ชาย / หญิง)
                 if (data.gender !== undefined) {
                     const g = String(data.gender).toLowerCase();
@@ -1465,4 +1685,5 @@
         });
     </script>
 </body>
+
 </html>
