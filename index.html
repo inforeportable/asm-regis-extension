@@ -373,7 +373,7 @@
                             </div>
                             <div class="service-field">
                                 <span>รายการรวม:</span>
-                                <input type="text" id="total_items" class="form-input" style="width: 24px;">
+                                <input type="text" id="total_items" class="form-input" style="width: 40px;">
                             </div>
                             <div class="service-field" style="flex-grow: 1; margin: 0 3px;">
                                 <span>หน่วยบริการ:</span>
@@ -382,7 +382,7 @@
                             </div>
                             <div class="service-field">
                                 <span>ลำดับ:</span>
-                                <input type="text" id="queue_no" class="form-input" style="width: 36px;">
+                                <input type="text" id="queue_no" class="form-input" style="width: 40px;">
                             </div>
                         </div>
                     </div>
@@ -1216,8 +1216,10 @@
                                     ประเมินสุขภาพ</div>
                                 <div style="padding: 2px 0;">
                                     <div
-                                        style="width: 88px; height: 88px; border: 1px solid #000; margin: 0 auto 2px auto; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 8.0pt; font-weight: bold; color: #333;">
-                                        QR CODE
+                                        style="width: 88px; height: 88px; margin: 0 auto 2px auto; display: flex; align-items: center; justify-content: center; background: #fff;">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Finforeportable.github.io%2Fasm-regis-extension%2Fcode_artifact_cal.html"
+                                            alt="QR Code สำหรับคำนวณสุขภาพ"
+                                            style="width: 88px; height: 88px; display: block;">
                                     </div>
                                     <div style="font-size: 6.8pt; color: #444; line-height: 1.2;">สแกนเพื่อคำนวนสุขภาพ
                                     </div>
@@ -1303,7 +1305,6 @@
             calcWaist();
             calcBP();
             calcCVDRisk();
-            calcLabRecommendations();
         }
 
         // 1. คำนวณ BMI
@@ -1540,14 +1541,6 @@
                 if (total <= 6) document.getElementById('q9_normal').checked = true;
                 else if (total <= 12) document.getElementById('q9_mild').checked = true;
                 else document.getElementById('q9_mod_sev').checked = true;
-            }
-        }
-
-        // แนะนำการตรวจ Lab ตามเกณฑ์อายุ
-        function calcLabRecommendations() {
-            const age = parseFloat(document.getElementById('age').value);
-            if (age >= 35) {
-                document.getElementById('lab_fbs').checked = true;
             }
         }
 
